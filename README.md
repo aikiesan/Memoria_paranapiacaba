@@ -62,7 +62,7 @@ Pontos a validar com ex-ferroviários antes de publicar: a nomenclatura exata de
 (propositalmente **não** usado no app); as posições dos pins de exemplo (aproximadas).
 
 As imagens dos cards são **ilustrações vetoriais originais e provisórias** (`src/components/Illustration.jsx`), a serem
-substituídas por fotografias históricas licenciadas do acervo do projeto.
+substituídas por fotografias históricas licenciadas do acervo do projeto. O roteiro de coleta (nomes de arquivo, licenças e créditos) está em [`docs/PROMPT_COLETA_IMAGENS.md`](docs/PROMPT_COLETA_IMAGENS.md).
 
 Para editar textos, perguntas do quiz, palavras do caça-palavras ou famílias de exemplo, altere apenas
 [`src/data/content.js`](src/data/content.js).
