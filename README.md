@@ -30,7 +30,7 @@ Faz parte do projeto **FAPESP / PUC-Campinas** de apoio à candidatura de Parana
 - Botão **“T”** no topo aumenta as letras de todo o app (preferência salva no aparelho).
 - Fonte **Atkinson Hyperlegible** (desenhada para baixa visão) no corpo; *Playfair Display* e *Special Elite* nos títulos e no bilhete.
 - Linguagem de conversa, sem termos acadêmicos. Respeita `prefers-reduced-motion`.
-- No celular ocupa a tela toda; no computador aparece dentro de uma moldura de smartphone.
+- Site responsivo: abre em tela cheia em qualquer celular, tablet ou computador (basta compartilhar o link). O conteúdo fica centralizado em telas grandes e a navegação fica sempre ao alcance do polegar.
 
 ## Como os dados são guardados (protótipo)
 

@@ -123,7 +123,7 @@ export default function MapaTab() {
       </MapContainer>
 
       {/* cabeçalho flutuante */}
-      <div className="pointer-events-none absolute inset-x-3 top-3 z-[1000] space-y-2">
+      <div className="pointer-events-none absolute inset-x-3 top-3 z-[1000] mx-auto max-w-md space-y-2">
         <div className="pointer-events-auto rounded-2xl border-2 border-latao bg-papel/95 px-4 py-3 shadow-cartao backdrop-blur">
           <h1 className="font-titulo text-xl font-bold leading-tight text-vagao">Mapa de Sobrenomes</h1>
           <p className="text-base text-tinta-suave">
@@ -150,7 +150,7 @@ export default function MapaTab() {
       </button>
 
       {modo === 'ver' && (
-        <button onClick={iniciar} className="btn-primario absolute inset-x-3 bottom-4 z-[1000] min-h-[60px] border-2 border-latao text-lg">
+        <button onClick={iniciar} className="btn-primario absolute inset-x-3 bottom-4 z-[1000] mx-auto min-h-[60px] max-w-md border-2 border-latao text-lg">
           <Plus size={26} /> Cravar Memória da Minha Família no Mapa
         </button>
       )}

@@ -11,10 +11,10 @@
     font-size: 115%;
   }
   body {
-    @apply bg-vagao-escuro font-corpo text-tinta antialiased;
+    @apply font-corpo text-tinta antialiased;
     min-height: 100dvh;
-    background-image: radial-gradient(circle at 20% 10%, rgba(197, 155, 39, 0.12), transparent 40%),
-      radial-gradient(circle at 80% 90%, rgba(139, 38, 29, 0.18), transparent 45%);
+    background-color: #f7f3e8;
+    background-image: repeating-linear-gradient(0deg, rgba(42, 36, 32, 0.025) 0 1px, transparent 1px 28px);
   }
   :focus-visible {
     outline: 3px solid #c59b27;

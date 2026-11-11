@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ChartColumn, Gamepad2, Images, MapPin, Ticket, Type } from 'lucide-react'
 import { useStore } from './lib/store.jsx'
 import { ToastProvider } from './components/Toast.jsx'
@@ -29,7 +29,6 @@ export default function App() {
   const { state, actions, storageWarning } = useStore()
   const [tab, setTab] = useState(readTab)
   const [panelOpen, setPanelOpen] = useState(false)
-  const scrollRef = useRef(null)
 
   useEffect(() => {
     try {
@@ -37,31 +36,25 @@ export default function App() {
     } catch {
       /* armazenamento indisponível: segue sem lembrar a aba */
     }
-    scrollRef.current?.scrollTo({ top: 0 })
+    window.scrollTo({ top: 0 })
   }, [tab])
 
-  return (
-    <div className="flex min-h-[100dvh] items-center justify-center md:py-8">
-      <div className="hidden max-w-xs flex-col gap-4 pr-14 text-papel lg:flex">
-        <p className="font-maquina text-sm uppercase tracking-[0.3em] text-latao">São Paulo Railway · 1867</p>
-        <h1 className="font-titulo text-5xl font-extrabold leading-[1.05]">Estação de Memória</h1>
-        <p className="text-lg leading-relaxed text-papel/85">
-          Um protótipo para conversar com moradores, ex-ferroviários e suas famílias sobre a vida na Vila de Paranapiacaba — e guardar essas lembranças
-          para a candidatura a Patrimônio da Humanidade.
-        </p>
-        <p className="text-sm text-papel/60">Projeto FAPESP · PUC-Campinas — versão de demonstração.</p>
-      </div>
+  const isMapa = tab === 'mapa'
 
-      {/* Moldura de celular no desktop, tela cheia no celular */}
-      <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-papel md:h-[min(900px,calc(100dvh-4rem))] md:w-[420px] md:rounded-[2.5rem] md:shadow-moldura">
-        <ToastProvider>
-          <header className="relative z-[1100] flex items-center gap-2 bg-vagao px-4 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))] text-papel shadow-md">
+  return (
+    <ToastProvider>
+      {/* Site responsivo: tela cheia em qualquer aparelho, rolagem natural da página */}
+      <div className={`flex flex-col ${isMapa ? 'h-[100dvh]' : 'min-h-[100dvh]'}`}>
+        <header className="sticky top-0 z-[1100] bg-vagao pt-[env(safe-area-inset-top)] text-papel shadow-md">
+          <div className="mx-auto flex w-full max-w-3xl items-center gap-2 px-4 py-3">
             <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full border-2 border-latao bg-vagao-escuro font-titulo text-base font-bold text-latao" aria-hidden>
               EM
             </div>
             <div className="min-w-0 flex-1">
-              <p className="font-titulo text-[17px] font-bold leading-[1.1]">Estação de Memória</p>
-              <p className="text-[12px] text-papel/75">Paranapiacaba</p>
+              <p className="font-titulo text-[17px] font-bold leading-[1.1] sm:text-xl">Estação de Memória</p>
+              <p className="text-[12px] text-papel/75 sm:text-sm">
+                Paranapiacaba<span className="hidden sm:inline"> · Serra do Mar</span>
+              </p>
             </div>
             <button
               onClick={actions.toggleLargeText}
@@ -83,18 +76,25 @@ export default function App() {
                 <span className="block text-[11px] font-semibold">do Pesquisador</span>
               </span>
             </button>
-          </header>
+          </div>
+        </header>
 
-          {storageWarning && <div className="bg-tijolo px-4 py-2 text-sm font-bold text-papel">{storageWarning}</div>}
+        {storageWarning && <div className="bg-tijolo px-4 py-2 text-center text-sm font-bold text-papel">{storageWarning}</div>}
 
-          <main ref={scrollRef} className={`papel-textura relative flex-1 ${tab === 'mapa' ? 'overflow-hidden' : 'overflow-y-auto'}`}>
-            {tab === 'bilhete' && <BilheteTab goTo={setTab} />}
-            {tab === 'mural' && <MuralTab goTo={setTab} />}
-            {tab === 'jogos' && <JogosTab />}
-            {tab === 'mapa' && <MapaTab />}
-          </main>
+        <main className={`relative flex-1 ${isMapa ? 'min-h-0' : ''}`}>
+          {isMapa ? (
+            <MapaTab />
+          ) : (
+            <div className="mx-auto w-full max-w-2xl">
+              {tab === 'bilhete' && <BilheteTab goTo={setTab} />}
+              {tab === 'mural' && <MuralTab goTo={setTab} />}
+              {tab === 'jogos' && <JogosTab />}
+            </div>
+          )}
+        </main>
 
-          <nav className="relative z-[1100] grid grid-cols-4 border-t-4 border-latao bg-vagao pb-[env(safe-area-inset-bottom)]" aria-label="Navegação principal">
+        <nav className="sticky bottom-0 z-[1100] border-t-4 border-latao bg-vagao pb-[env(safe-area-inset-bottom)]" aria-label="Navegação principal">
+          <div className="mx-auto grid w-full max-w-3xl grid-cols-4">
             {TABS.map(({ id, label, icon: Icon }) => {
               const active = tab === id
               return (
@@ -102,7 +102,7 @@ export default function App() {
                   key={id}
                   onClick={() => setTab(id)}
                   aria-current={active ? 'page' : undefined}
-                  className={`flex min-h-[72px] flex-col items-center justify-center gap-1 px-1 text-[13px] font-bold leading-tight transition ${
+                  className={`flex min-h-[68px] flex-col items-center justify-center gap-1 px-1 text-[13px] font-bold leading-tight transition sm:text-[15px] ${
                     active ? 'bg-vagao-escuro text-latao' : 'text-papel/80 hover:text-papel'
                   }`}
                 >
@@ -111,13 +111,10 @@ export default function App() {
                 </button>
               )
             })}
-          </nav>
-
-          {/* camada onde os modais (Sheet) são renderizados, cobrindo a "tela do celular" */}
-          <div id="camada-modal" className="pointer-events-none absolute inset-0 z-[1200]" />
-          <ResearcherPanel open={panelOpen} onClose={() => setPanelOpen(false)} />
-        </ToastProvider>
+          </div>
+        </nav>
       </div>
-    </div>
+      <ResearcherPanel open={panelOpen} onClose={() => setPanelOpen(false)} />
+    </ToastProvider>
   )
 }

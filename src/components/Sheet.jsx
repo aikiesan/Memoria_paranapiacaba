@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
 
-// Folha modal que ocupa a "tela do celular" (posição absoluta dentro da moldura).
+// Folha modal: no celular sobe de baixo (bottom sheet); em telas maiores vira uma janela centralizada.
 export default function Sheet({ open, onClose, title, children, tall = false, icon = null }) {
   const ref = useRef(null)
   const closeRef = useRef(onClose)
@@ -16,9 +16,8 @@ export default function Sheet({ open, onClose, title, children, tall = false, ic
   }, [open])
 
   if (!open) return null
-  const alvo = document.getElementById('camada-modal') || document.body
   return createPortal(
-    <div className="pointer-events-auto absolute inset-0 z-[1200] flex items-end justify-center bg-tinta/60 backdrop-blur-[2px]" onClick={onClose}>
+    <div className="fixed inset-0 z-[2000] flex items-end justify-center bg-tinta/60 backdrop-blur-[2px] sm:items-center sm:p-6" onClick={onClose}>
       <div
         ref={ref}
         tabIndex={-1}
@@ -26,8 +25,8 @@ export default function Sheet({ open, onClose, title, children, tall = false, ic
         aria-modal="true"
         aria-label={title}
         onClick={(e) => e.stopPropagation()}
-        className={`anim-subir papel-textura flex w-full flex-col rounded-t-3xl border-t-4 border-latao shadow-2xl outline-none ${
-          tall ? 'h-[92%]' : 'max-h-[88%]'
+        className={`anim-subir papel-textura flex w-full flex-col rounded-t-3xl border-t-4 border-latao pb-[env(safe-area-inset-bottom)] shadow-2xl outline-none sm:max-w-lg sm:rounded-3xl sm:border-4 ${
+          tall ? 'h-[92dvh] sm:h-[88dvh]' : 'max-h-[88dvh]'
         }`}
       >
         <div className="flex items-center gap-3 border-b border-papel-borda px-5 py-4">
@@ -40,6 +39,6 @@ export default function Sheet({ open, onClose, title, children, tall = false, ic
         <div className="flex-1 overflow-y-auto px-5 py-5">{children}</div>
       </div>
     </div>,
-    alvo,
+    document.body,
   )
 }

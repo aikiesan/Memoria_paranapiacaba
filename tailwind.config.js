@@ -18,7 +18,6 @@ export default {
       },
       boxShadow: {
         cartao: '0 1px 0 rgba(42,36,32,0.06), 0 6px 18px -8px rgba(42,36,32,0.25)',
-        moldura: '0 30px 80px -20px rgba(0,0,0,0.6), 0 0 0 10px #132A15, 0 0 0 12px #C59B27',
       },
     },
   },
