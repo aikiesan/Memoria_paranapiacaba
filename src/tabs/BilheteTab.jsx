@@ -44,7 +44,7 @@ function Ticket({ profile, stamps = [], live = false }) {
           </div>
           <div className="border-y-2 border-dashed border-tijolo/40 py-2 text-center">
             <p className="text-xs uppercase">Passageiro(a)</p>
-            <p className="break-words font-titulo text-2xl font-bold leading-tight text-vagao">{profile.nome?.trim() || 'Seu nome aqui'}</p>
+            <p className="break-words font-titulo text-xl font-bold leading-tight text-vagao">{profile.nome?.trim() || 'Seu nome aqui'}</p>
           </div>
           <div className="grid grid-cols-2 gap-2 text-sm">
             <div>
@@ -103,13 +103,13 @@ function Onboarding({ initial, onDone }) {
 
   if (step === 0) {
     return (
-      <div className="space-y-5 px-5 py-6">
-        <div className="space-y-2 text-center">
+      <div className="space-y-4 px-4 py-5">
+        <div className="space-y-1.5 text-center">
           <p className="font-maquina text-sm uppercase tracking-[0.2em] text-tijolo">Bem-vindo(a) a bordo</p>
-          <h1 className="font-titulo text-[1.75rem] font-bold leading-tight text-vagao">Qual a sua ligação com os trilhos de Paranapiacaba?</h1>
-          <p className="text-lg text-tinta-suave">Toque na opção que mais combina com você.</p>
+          <h1 className="font-titulo text-[1.45rem] font-bold leading-tight text-vagao sm:text-[1.75rem]">Qual a sua ligação com os trilhos de Paranapiacaba?</h1>
+          <p className="text-[15px] text-tinta-suave">Passo 1 de 2 · Toque na opção que mais combina com você.</p>
         </div>
-        <div className="grid gap-3">
+        <div className="grid gap-2.5">
           {LIGACOES.map((l) => (
             <button
               key={l.key}
@@ -117,16 +117,16 @@ function Onboarding({ initial, onDone }) {
                 set('ligacao', l.key)
                 setStep(1)
               }}
-              className={`flex min-h-[76px] items-center gap-4 rounded-2xl border-2 px-4 py-3 text-left transition active:scale-[0.99] ${
+              className={`flex min-h-[64px] items-center gap-3 rounded-xl border-2 px-3.5 py-2.5 text-left transition active:scale-[0.99] ${
                 form.ligacao === l.key ? 'border-vagao bg-vagao text-papel' : 'border-papel-borda bg-white hover:border-vagao'
               }`}
             >
-              <span className="text-4xl" aria-hidden>
+              <span className="text-[1.75rem]" aria-hidden>
                 {l.emoji}
               </span>
               <span>
-                <span className="block text-lg font-bold leading-tight">{l.label}</span>
-                <span className={`block text-base ${form.ligacao === l.key ? 'text-papel/80' : 'text-tinta-suave'}`}>{l.descricao}</span>
+                <span className="block text-[16px] font-bold leading-tight">{l.label}</span>
+                <span className={`block text-[13px] ${form.ligacao === l.key ? 'text-papel/80' : 'text-tinta-suave'}`}>{l.descricao}</span>
               </span>
             </button>
           ))}
@@ -136,13 +136,13 @@ function Onboarding({ initial, onDone }) {
   }
 
   return (
-    <div className="space-y-6 px-5 py-6">
-      <button onClick={() => setStep(0)} className="btn-fantasma -ml-3 min-h-[44px] px-3">
+    <div className="space-y-5 px-4 py-4">
+      <button onClick={() => setStep(0)} className="btn-fantasma -ml-2 min-h-[40px] px-2">
         <ChevronLeft size={22} /> Voltar
       </button>
       <div>
         <h1 className="titulo-secao">Vamos montar seu bilhete</h1>
-        <p className="mt-1 text-lg text-tinta-suave">Ele vai se formando aqui embaixo enquanto você preenche.</p>
+        <p className="mt-0.5 text-[15px] text-tinta-suave">Passo 2 de 2 · O bilhete se forma enquanto você preenche.</p>
       </div>
 
       <Ticket profile={{ ...form, oficio: oficioFinal, numero: initial?.numero }} live />
@@ -180,7 +180,7 @@ function Onboarding({ initial, onDone }) {
       </fieldset>
 
       <button
-        className="btn-primario w-full text-lg"
+        className="btn-primario sticky bottom-[calc(4.25rem+env(safe-area-inset-bottom))] z-10 w-full shadow-lg"
         disabled={!form.nome.trim()}
         onClick={() =>
           onDone({
@@ -250,7 +250,7 @@ export default function BilheteTab({ goTo }) {
   }
 
   return (
-    <div className="space-y-6 px-5 py-6">
+    <div className="space-y-5 px-4 py-5">
       <div className="text-center">
         <p className="font-maquina text-sm uppercase tracking-[0.2em] text-tijolo">Seu bilhete histórico</p>
         <h1 className="titulo-secao mt-1">Que bom ter você a bordo, {/^fam[íi]lia\s/i.test(p.nome) ? p.nome : p.nome.split(' ')[0]}!</h1>
@@ -259,7 +259,7 @@ export default function BilheteTab({ goTo }) {
       <Ticket profile={p} stamps={stamps} />
 
       <div className="grid gap-3">
-        <button className="btn-whatsapp w-full text-lg" onClick={shareWhatsApp}>
+        <button className="btn-whatsapp w-full" onClick={shareWhatsApp}>
           <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden fill="currentColor">
             <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3Z" />
           </svg>
@@ -276,22 +276,22 @@ export default function BilheteTab({ goTo }) {
         </div>
       </div>
 
-      <section className="cartao space-y-3 p-5">
-        <h2 className="font-titulo text-xl font-bold text-vagao">Próximas estações da sua viagem</h2>
-        <p className="text-base text-tinta-suave">Cada estação visitada ganha um carimbo no seu bilhete.</p>
+      <section className="cartao space-y-2.5 p-4">
+        <h2 className="font-titulo text-lg font-bold text-vagao">Próximas estações da sua viagem</h2>
+        <p className="text-[14px] text-tinta-suave">Cada estação visitada ganha um carimbo no seu bilhete.</p>
         <div className="grid gap-2">
           {[
             { tab: 'mural', icon: Images, t: 'Mural da Vila', d: 'Reaja às fotos e conte uma lembrança' },
             { tab: 'jogos', icon: Puzzle, t: 'Jogos da Ferrovia', d: 'Quiz das engenhocas e caça-palavras' },
             { tab: 'mapa', icon: MapPin, t: 'Mapa de Sobrenomes', d: 'Crave a memória da sua família na vila' },
           ].map(({ tab, icon: Icon, t, d }) => (
-            <button key={tab} onClick={() => goTo(tab)} className="flex min-h-[64px] items-center gap-3 rounded-xl border-2 border-papel-borda bg-white px-4 py-3 text-left hover:border-vagao">
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-vagao text-latao">
-                <Icon size={24} />
+            <button key={tab} onClick={() => goTo(tab)} className="flex min-h-[56px] items-center gap-3 rounded-xl border-2 border-papel-borda bg-white px-3 py-2 text-left hover:border-vagao">
+              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-vagao text-latao">
+                <Icon size={20} />
               </span>
               <span>
-                <span className="block text-lg font-bold leading-tight">{t}</span>
-                <span className="block text-base text-tinta-suave">{d}</span>
+                <span className="block text-[15px] font-bold leading-tight">{t}</span>
+                <span className="block text-[13px] text-tinta-suave">{d}</span>
               </span>
             </button>
           ))}

@@ -32,7 +32,7 @@
       radial-gradient(circle at 30% 20%, rgba(197, 155, 39, 0.06), transparent 60%);
   }
   .btn {
-    @apply inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl px-5 py-3 text-base font-bold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+    @apply inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl px-4 py-2 text-[15px] font-bold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
   }
   .btn-primario {
     @apply btn bg-tijolo text-papel shadow-cartao hover:bg-tijolo-claro;
@@ -50,16 +50,16 @@
     @apply btn text-tinta-suave hover:bg-papel-escuro;
   }
   .cartao {
-    @apply rounded-2xl border border-papel-borda bg-papel shadow-cartao;
+    @apply rounded-xl sm:rounded-2xl border border-papel-borda bg-papel shadow-cartao;
   }
   .campo {
-    @apply w-full rounded-xl border-2 border-papel-borda bg-white px-4 py-3 text-lg text-tinta placeholder:text-neblina-escuro focus:border-vagao focus:outline-none;
+    @apply w-full rounded-xl border-2 border-papel-borda bg-white px-3.5 py-2.5 text-base text-tinta placeholder:text-neblina-escuro focus:border-vagao focus:outline-none;
   }
   .rotulo {
-    @apply mb-2 block text-base font-bold text-tinta;
+    @apply mb-1.5 block text-[15px] font-bold text-tinta;
   }
   .chip {
-    @apply inline-flex min-h-[48px] items-center justify-center rounded-full border-2 px-4 py-2 text-base font-bold transition;
+    @apply inline-flex min-h-[40px] items-center justify-center rounded-full border-2 px-3.5 py-1.5 text-sm font-bold transition;
   }
   .chip-off {
     @apply chip border-papel-borda bg-white text-tinta hover:border-vagao;
@@ -68,7 +68,7 @@
     @apply chip border-vagao bg-vagao text-papel;
   }
   .titulo-secao {
-    @apply font-titulo text-2xl font-bold leading-tight text-vagao;
+    @apply font-titulo text-[1.4rem] font-bold leading-tight text-vagao sm:text-2xl;
   }
   .selo-ficticio {
     @apply inline-flex items-center rounded-md border border-latao-escuro/40 bg-latao-claro/30 px-1.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide text-latao-escuro;

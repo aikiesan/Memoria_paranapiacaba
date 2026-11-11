@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { ChevronRight, Lock, RotateCcw, Trophy, Unlock } from 'lucide-react'
 import { QUIZ, VOCABULARIO } from '../data/content'
 import { useStore } from '../lib/store.jsx'
-import Illustration from './Illustration.jsx'
+import Foto from './Foto.jsx'
 import Sheet from './Sheet.jsx'
 import { useToast } from './Toast.jsx'
 
@@ -56,15 +56,15 @@ export default function Quiz() {
     <div className="space-y-4">
       {/* progresso */}
       <div className="flex items-center gap-3">
-        <Trophy className="text-latao-escuro" size={26} />
+        <Trophy className="text-latao-escuro" size={22} />
         <div className="flex-1">
-          <div className="flex justify-between text-base font-bold">
+          <div className="flex justify-between text-[14px] font-bold">
             <span>Memórias desbloqueadas</span>
             <span>
               {acertadas}/{QUIZ.length}
             </span>
           </div>
-          <div className="mt-1 h-3 overflow-hidden rounded-full bg-papel-escuro">
+          <div className="mt-1 h-2.5 overflow-hidden rounded-full bg-papel-escuro">
             <div className="h-full rounded-full bg-latao transition-all" style={{ width: `${(acertadas / QUIZ.length) * 100}%` }} />
           </div>
         </div>
@@ -82,7 +82,7 @@ export default function Quiz() {
                 setErrou([])
               }}
               aria-label={`${x.termo}${ok ? ' (desbloqueada)' : ''}`}
-              className={`grid h-11 w-11 shrink-0 place-items-center rounded-full border-2 ${
+              className={`grid h-9 w-9 shrink-0 place-items-center rounded-full border-2 ${
                 i === idx ? 'border-tijolo' : 'border-transparent'
               } ${ok ? 'bg-latao text-vagao-escuro' : 'bg-papel-escuro text-tinta-suave'}`}
             >
@@ -94,14 +94,14 @@ export default function Quiz() {
 
       <article className="cartao overflow-hidden">
         <div className="relative">
-          <Illustration name={q.ilustracao} title={q.termo} className="block aspect-[400/220] w-full" />
-          <span className="absolute left-3 top-3 rounded-full bg-papel/95 px-3 py-1 font-maquina text-sm text-tinta">
+          <Foto lugar={`quiz:${q.id}`} ilustracao={q.ilustracao} titulo={q.termo} className="block aspect-[400/220] w-full" />
+          <span className="absolute bottom-3 left-3 rounded-full bg-papel/95 px-3 py-1 font-maquina text-sm text-tinta">
             {idx + 1} de {QUIZ.length}
           </span>
         </div>
-        <div className="space-y-3 p-4">
-          <p className="font-maquina text-sm uppercase tracking-[0.15em] text-tijolo">{q.termo}</p>
-          <h2 className="font-titulo text-2xl font-bold leading-tight text-vagao">{q.pergunta}</h2>
+        <div className="space-y-2.5 p-4">
+          <p className="font-maquina text-[12px] uppercase tracking-[0.15em] text-tijolo">{q.termo}</p>
+          <h2 className="font-titulo text-[1.3rem] font-bold leading-tight text-vagao">{q.pergunta}</h2>
           <div className="grid gap-2">
             {q.opcoes.map((op, i) => {
               const certa = (escolha === q.correta || jaAcertou) && i === q.correta
@@ -111,7 +111,7 @@ export default function Quiz() {
                   key={i}
                   onClick={() => responder(i)}
                   disabled={errada}
-                  className={`flex min-h-[60px] items-center gap-3 rounded-xl border-2 px-4 py-3 text-left text-lg font-bold transition ${
+                  className={`flex min-h-[52px] items-center gap-2.5 rounded-xl border-2 px-3 py-2 text-left text-[15px] font-bold leading-snug transition ${
                     certa
                       ? 'border-vagao bg-vagao text-papel'
                       : errada
@@ -119,7 +119,7 @@ export default function Quiz() {
                         : 'border-papel-borda bg-white hover:border-vagao'
                   }`}
                 >
-                  <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full font-maquina ${certa ? 'bg-latao text-vagao-escuro' : 'bg-papel-escuro'}`}>
+                  <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-full text-[13px] font-maquina ${certa ? 'bg-latao text-vagao-escuro' : 'bg-papel-escuro'}`}>
                     {certa ? '✓' : 'ABCD'[i]}
                   </span>
                   {op}
@@ -128,13 +128,13 @@ export default function Quiz() {
             })}
           </div>
           {errou.length > 0 && escolha !== q.correta && !jaAcertou && (
-            <p className="rounded-xl bg-latao-claro/30 px-4 py-3 text-base font-bold" role="status">
+            <p className="rounded-xl bg-latao-claro/30 px-3 py-2 text-[15px] font-bold" role="status">
               Quase! Tente outra opção — não tem pressa. 🙂
             </p>
           )}
           {(escolha === q.correta || jaAcertou) && (
             <div className="space-y-3">
-              <p className="rounded-xl bg-vagao/10 px-4 py-3 text-base leading-relaxed">
+              <p className="rounded-xl bg-vagao/10 px-3 py-2.5 text-[15px] leading-relaxed">
                 <strong>Isso mesmo!</strong> {curiosidade}
               </p>
               <div className="grid grid-cols-2 gap-2">
@@ -152,7 +152,7 @@ export default function Quiz() {
 
       {acertadas === QUIZ.length && (
         <div className="cartao space-y-3 p-4 text-center">
-          <p className="font-titulo text-xl font-bold text-vagao">🏆 Você desbloqueou todas as engenhocas da Serra!</p>
+          <p className="font-titulo text-lg font-bold text-vagao">🏆 Você desbloqueou todas as engenhocas da Serra!</p>
           <button
             className="btn-fantasma mx-auto"
             onClick={() => {
@@ -171,10 +171,10 @@ export default function Quiz() {
         {desbloqueio && (
           <div className="space-y-4">
             <div className="anim-carimbo mx-auto w-fit rounded-xl border-[3px] border-tijolo px-4 py-2 font-maquina text-lg uppercase text-tijolo">{desbloqueio.termo}</div>
-            <p className="text-lg leading-relaxed">
+            <p className="text-[16px] leading-relaxed">
               <strong>Alguém da sua família contava histórias sobre isso? Conta pra gente!</strong>
             </p>
-            {gatilho && <p className="text-base italic text-tinta-suave">{gatilho}</p>}
+            {gatilho && <p className="text-[14px] italic text-tinta-suave">{gatilho}</p>}
             <label htmlFor="mem-quiz" className="sr-only">
               Sua memória
             </label>

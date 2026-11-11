@@ -61,8 +61,16 @@ Definições e curiosidades vêm do documento-base do projeto, apoiado em:
 Pontos a validar com ex-ferroviários antes de publicar: a nomenclatura exata de **cabineiro**; o termo “Fogo Paulista”
 (propositalmente **não** usado no app); as posições dos pins de exemplo (aproximadas).
 
-As imagens dos cards são **ilustrações vetoriais originais e provisórias** (`src/components/Illustration.jsx`), a serem
-substituídas por fotografias históricas licenciadas do acervo do projeto. O roteiro de coleta (nomes de arquivo, licenças e créditos) está em [`docs/PROMPT_COLETA_IMAGENS.md`](docs/PROMPT_COLETA_IMAGENS.md).
+### Fotografias
+
+As fotos ficam em [`src/assets/imagens/`](src/assets/imagens/) e os créditos em `creditos.json`, na mesma pasta.
+Para incluir uma foto nova, **basta colocar o arquivo `.webp` nessa pasta com o nome indicado no `creditos.json`**
+(dá para fazer pelo próprio GitHub: *Add file → Upload files*). No próximo deploy a foto aparece sozinha, com o
+crédito e a licença sobre a imagem e na lista do Painel do Pesquisador. Enquanto o arquivo não existir, o app usa a
+ilustração vetorial provisória (`src/components/Illustration.jsx`).
+
+Onde cada foto aparece (e quais itens do acervo estão em revisão) é definido em [`src/data/imagens.js`](src/data/imagens.js).
+O roteiro de coleta está em [`docs/PROMPT_COLETA_IMAGENS.md`](docs/PROMPT_COLETA_IMAGENS.md).
 
 Para editar textos, perguntas do quiz, palavras do caça-palavras ou famílias de exemplo, altere apenas
 [`src/data/content.js`](src/data/content.js).

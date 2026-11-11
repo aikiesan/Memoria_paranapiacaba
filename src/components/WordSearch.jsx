@@ -166,7 +166,7 @@ export default function WordSearch() {
 
   return (
     <div className="space-y-4">
-      <p className="text-lg leading-relaxed">
+      <p className="text-[15px] leading-relaxed">
         Toque na <strong>primeira</strong> e depois na <strong>última letra</strong> da palavra (ou arraste o dedo). As palavras estão na horizontal,
         vertical ou diagonal.
       </p>
@@ -233,7 +233,7 @@ export default function WordSearch() {
                   setComentario(encontradas[p.palavra]?.comentario || '')
                   setAchada(p)
                 }}
-                className={`flex min-h-[48px] w-full items-center gap-2 rounded-xl border-2 px-3 text-left font-maquina text-base ${
+                className={`flex min-h-[40px] w-full items-center gap-2 rounded-lg border-2 px-2.5 text-left font-maquina text-[14px] ${
                   ok ? 'border-latao bg-latao-claro/30 text-vagao-escuro' : 'border-papel-borda bg-white text-tinta'
                 }`}
               >
@@ -247,7 +247,7 @@ export default function WordSearch() {
 
       {qtd === total && (
         <div className="cartao space-y-2 p-4 text-center">
-          <p className="font-titulo text-xl font-bold text-vagao">🎉 Você encontrou todas as palavras da Serra!</p>
+          <p className="font-titulo text-lg font-bold text-vagao">🎉 Você encontrou todas as palavras da Serra!</p>
           <button className="btn-fantasma mx-auto" onClick={actions.resetWordSearch}>
             <RotateCcw size={20} /> Jogar de novo
           </button>
@@ -259,7 +259,7 @@ export default function WordSearch() {
           <div className="space-y-4">
             <div className="rounded-xl bg-latao-claro/25 p-4">
               <p className="font-maquina text-sm uppercase tracking-[0.15em] text-tijolo">Curiosidade rápida</p>
-              <p className="mt-1 text-lg leading-relaxed">{achada.curiosidade}</p>
+              <p className="mt-1 text-[15px] leading-relaxed">{achada.curiosidade}</p>
             </div>
             <fieldset>
               <legend className="rotulo">Que sentimento “{achada.rotulo}” desperta em você?</legend>
@@ -270,11 +270,11 @@ export default function WordSearch() {
                     type="button"
                     onClick={() => setSentimento(s.key)}
                     aria-pressed={sentimento === s.key}
-                    className={`flex min-h-[56px] items-center gap-2 rounded-xl border-2 px-3 text-left text-base font-bold ${
+                    className={`flex min-h-[48px] items-center gap-2 rounded-xl border-2 px-3 text-left text-[15px] font-bold ${
                       sentimento === s.key ? 'border-tijolo bg-tijolo text-papel' : 'border-papel-borda bg-white'
                     }`}
                   >
-                    <span className="text-2xl" aria-hidden>
+                    <span className="text-xl" aria-hidden>
                       {s.emoji}
                     </span>
                     {s.label}

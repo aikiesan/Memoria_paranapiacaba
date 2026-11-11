@@ -4,12 +4,13 @@ import { FONTES, LIGACOES, SENTIMENTOS } from '../data/content'
 import { useStore } from '../lib/store.jsx'
 import { buildCsv, buildExport, computeStats, downloadFile, stamp } from '../lib/export'
 import Sheet from './Sheet.jsx'
+import { IMAGENS_EXCLUIDAS, creditosEmUso } from '../data/imagens'
 import { useToast } from './Toast.jsx'
 
 function Tile({ valor, rotulo, detalhe }) {
   return (
     <div className="rounded-2xl border border-papel-borda bg-white p-3">
-      <p className="font-titulo text-3xl font-bold leading-none text-vagao">{valor}</p>
+      <p className="font-titulo text-2xl font-bold leading-none text-vagao">{valor}</p>
       <p className="mt-1 text-sm font-bold leading-tight text-tinta">{rotulo}</p>
       {detalhe && <p className="text-xs text-tinta-suave">{detalhe}</p>}
     </div>
@@ -26,7 +27,7 @@ export default function ResearcherPanel({ open, onClose }) {
 
   return (
     <Sheet open={open} onClose={onClose} tall title="Painel PUC-Campinas / FAPESP" icon={<ChartColumn className="text-tijolo" size={28} />}>
-      <div className="space-y-6">
+      <div className="space-y-5">
         <p className="text-base text-tinta-suave">
           Dados coletados <strong>neste aparelho</strong> durante a demonstração. Use os botões abaixo para baixar tudo e enviar à equipe de pesquisa.
         </p>
@@ -43,7 +44,7 @@ export default function ResearcherPanel({ open, onClose }) {
         </section>
 
         <section className="space-y-2">
-          <h3 className="font-titulo text-lg font-bold text-vagao">Perfil do participante</h3>
+          <h3 className="font-titulo text-[16px] font-bold text-vagao">Perfil do participante</h3>
           {state.profile ? (
             <p className="rounded-xl bg-white p-3 text-base">
               <strong>{state.profile.nome}</strong> · {lig?.label || '—'} · {state.profile.decada || '—'} · {state.profile.oficio || '—'}
@@ -55,7 +56,7 @@ export default function ResearcherPanel({ open, onClose }) {
         </section>
 
         <section className="space-y-2">
-          <h3 className="font-titulo text-lg font-bold text-vagao">Reações por local (total)</h3>
+          <h3 className="font-titulo text-[16px] font-bold text-vagao">Reações por local (total)</h3>
           <ul className="space-y-2">
             {s.reacoesPorLocal.map((r) => (
               <li key={r.id} title={`${r.titulo}: ${r.total} reações (${r.minhas} deste aparelho)`}>
@@ -77,7 +78,7 @@ export default function ResearcherPanel({ open, onClose }) {
 
         {Object.keys(s.sentimentos).length > 0 && (
           <section className="space-y-2">
-            <h3 className="font-titulo text-lg font-bold text-vagao">Sentimentos no caça-palavras</h3>
+            <h3 className="font-titulo text-[16px] font-bold text-vagao">Sentimentos no caça-palavras</h3>
             <div className="flex flex-wrap gap-2">
               {Object.entries(s.sentimentos).map(([k, n]) => {
                 const st = SENTIMENTOS.find((x) => x.key === k)
@@ -92,7 +93,7 @@ export default function ResearcherPanel({ open, onClose }) {
         )}
 
         <section className="space-y-2">
-          <h3 className="font-titulo text-lg font-bold text-vagao">Baixar dados</h3>
+          <h3 className="font-titulo text-[16px] font-bold text-vagao">Baixar dados</h3>
           <div className="grid gap-2">
             <button
               className="btn-verde w-full"
@@ -117,7 +118,7 @@ export default function ResearcherPanel({ open, onClose }) {
         </section>
 
         <section className="space-y-2 rounded-2xl border-2 border-tijolo/30 p-4">
-          <h3 className="font-titulo text-lg font-bold text-tijolo">Resetar dados de demonstração</h3>
+          <h3 className="font-titulo text-[16px] font-bold text-tijolo">Resetar dados de demonstração</h3>
           <p className="text-sm text-tinta-suave">Apaga tudo o que foi inserido neste aparelho e volta aos dados de exemplo.</p>
           {confirmar ? (
             <div className="grid grid-cols-2 gap-2">
@@ -143,7 +144,7 @@ export default function ResearcherPanel({ open, onClose }) {
         </section>
 
         <section className="space-y-2">
-          <h3 className="font-titulo text-lg font-bold text-vagao">Fontes do conteúdo</h3>
+          <h3 className="font-titulo text-[16px] font-bold text-vagao">Fontes do conteúdo</h3>
           <ol className="list-decimal space-y-1 pl-5 text-sm">
             {FONTES.map((f) => (
               <li key={f.id}>
@@ -153,6 +154,33 @@ export default function ResearcherPanel({ open, onClose }) {
               </li>
             ))}
           </ol>
+          <h3 className="pt-2 font-titulo text-[16px] font-bold text-vagao">Créditos das fotografias</h3>
+          <ul className="space-y-1 text-sm">
+            {creditosEmUso().map((a) => (
+              <li key={a.slug}>
+                <a href={a.page} target="_blank" rel="noreferrer" className="text-vagao underline underline-offset-2">
+                  {a.alt.replace(/\.$/, '')}
+                </a>{' '}
+                — {a.credit},{' '}
+                <a href={a.license_url} target="_blank" rel="noreferrer" className="underline underline-offset-2">
+                  {a.license}
+                </a>{' '}
+                (recortada)
+              </li>
+            ))}
+          </ul>
+          {Object.keys(IMAGENS_EXCLUIDAS).length > 0 && (
+            <details className="text-xs text-tinta-suave">
+              <summary className="cursor-pointer font-bold">Imagens do acervo em revisão ({Object.keys(IMAGENS_EXCLUIDAS).length})</summary>
+              <ul className="mt-1 list-disc space-y-1 pl-4">
+                {Object.entries(IMAGENS_EXCLUIDAS).map(([k, v]) => (
+                  <li key={k}>
+                    <code>{k}</code>: {v}
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )}
           <p className="text-xs text-tinta-suave">
             Relatos, comentários e famílias marcados como “fictício” são dados de demonstração e não devem ser apresentados como depoimentos reais.
           </p>

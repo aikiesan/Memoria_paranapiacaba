@@ -67,7 +67,7 @@ export function AudioPlayer({ audio }) {
 
   return (
     <div className="mt-2 flex items-center gap-3 rounded-xl border border-papel-borda bg-papel-escuro px-3 py-2">
-      <button onClick={toggle} className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-vagao text-papel" aria-label={playing ? 'Pausar áudio' : 'Ouvir áudio de memória'}>
+      <button onClick={toggle} className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-vagao text-papel" aria-label={playing ? 'Pausar áudio' : 'Ouvir áudio de memória'}>
         {playing ? <Pause size={22} /> : <Play size={22} />}
       </button>
       <Waveform active={playing} seed={audio.duracao || 3} />
@@ -199,7 +199,7 @@ export default function AudioRecorder({ value, onChange }) {
   return (
     <div>
       <button onClick={start} className="btn-contorno w-full border-tijolo text-tijolo">
-        <Mic size={24} /> 🎙️ Gravar Áudio de Memória
+        <Mic size={20} /> Gravar áudio da memória
       </button>
       {msg && <p className="mt-2 text-sm text-tinta-suave">{msg}</p>}
     </div>

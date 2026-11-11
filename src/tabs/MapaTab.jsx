@@ -106,7 +106,7 @@ export default function MapaTab() {
           <Marker key={p.id} position={[p.lat, p.lng]} icon={icons[p.id]} keyboard title={`Família ${p.sobrenome}`}>
             <Popup>
               <div className="min-w-[200px] space-y-1 text-tinta">
-                <p className="font-titulo text-lg font-bold leading-tight text-vagao">Família {p.sobrenome}</p>
+                <p className="font-titulo text-[16px] font-bold leading-tight text-vagao">Família {p.sobrenome}</p>
                 <p className="text-base">
                   <strong>{p.parente}</strong>
                   {p.oficio ? ` — ${p.oficio}` : ''}
@@ -124,18 +124,18 @@ export default function MapaTab() {
 
       {/* cabeçalho flutuante */}
       <div className="pointer-events-none absolute inset-x-3 top-3 z-[1000] mx-auto max-w-md space-y-2">
-        <div className="pointer-events-auto rounded-2xl border-2 border-latao bg-papel/95 px-4 py-3 shadow-cartao backdrop-blur">
-          <h1 className="font-titulo text-xl font-bold leading-tight text-vagao">Mapa de Sobrenomes</h1>
-          <p className="text-base text-tinta-suave">
+        <div className="pointer-events-auto rounded-xl border-2 border-latao bg-papel/95 px-3 py-2 shadow-cartao backdrop-blur">
+          <h1 className="font-titulo text-[17px] font-bold leading-tight text-vagao">Mapa de Sobrenomes</h1>
+          <p className="text-[13px] text-tinta-suave">
             {state.pins.length} memórias de {familias} famílias na vila
           </p>
         </div>
         {modo === 'escolher' && (
-          <div className="pointer-events-auto flex items-center gap-3 rounded-2xl bg-tijolo px-4 py-3 text-papel shadow-cartao" role="status">
-            <MapPin size={28} className="shrink-0" />
-            <p className="flex-1 text-base font-bold leading-snug">Toque no mapa onde ficava a casa ou o trabalho da sua família.</p>
-            <button onClick={cancelar} className="grid h-11 w-11 place-items-center rounded-full bg-papel/20" aria-label="Cancelar">
-              <X size={24} />
+          <div className="pointer-events-auto flex items-center gap-2.5 rounded-xl bg-tijolo px-3 py-2.5 text-papel shadow-cartao" role="status">
+            <MapPin size={22} className="shrink-0" />
+            <p className="flex-1 text-[14px] font-bold leading-snug">Toque no mapa onde ficava a casa ou o trabalho da sua família.</p>
+            <button onClick={cancelar} className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-papel/20" aria-label="Cancelar">
+              <X size={20} />
             </button>
           </div>
         )}
@@ -143,25 +143,25 @@ export default function MapaTab() {
 
       <button
         onClick={() => map?.flyTo(CENTRO_VILA, 17, { duration: 0.6 })}
-        className="absolute bottom-24 right-3 z-[1000] grid h-14 w-14 place-items-center rounded-full border-2 border-latao bg-papel text-vagao shadow-cartao"
+        className="absolute bottom-[4.5rem] right-3 z-[1000] grid h-11 w-11 place-items-center rounded-full border-2 border-latao bg-papel text-vagao shadow-cartao"
         aria-label="Voltar ao centro da vila"
       >
-        <LocateFixed size={26} />
+        <LocateFixed size={22} />
       </button>
 
       {modo === 'ver' && (
-        <button onClick={iniciar} className="btn-primario absolute inset-x-3 bottom-4 z-[1000] mx-auto min-h-[60px] max-w-md border-2 border-latao text-lg">
-          <Plus size={26} /> Cravar Memória da Minha Família no Mapa
+        <button onClick={iniciar} className="btn-primario absolute inset-x-3 bottom-3 z-[1000] mx-auto min-h-[50px] max-w-md border-2 border-latao">
+          <Plus size={22} /> Cravar memória da minha família
         </button>
       )}
 
-      <p className="pointer-events-none absolute bottom-[5.6rem] left-3 z-[1000] max-w-[60%] rounded-lg bg-papel/90 px-2 py-1 text-xs text-tinta-suave">
+      <p className="pointer-events-none absolute bottom-[4.6rem] left-3 z-[1000] max-w-[60%] rounded-md bg-papel/90 px-2 py-0.5 text-[11px] text-tinta-suave">
         Posições dos exemplos são aproximadas e fictícias.
       </p>
 
       <Sheet open={modo === 'form'} onClose={cancelar} title="Memória da minha família" icon={<MapPin className="text-tijolo" size={28} />}>
         <form
-          className="space-y-4"
+          className="space-y-3"
           onSubmit={(e) => {
             e.preventDefault()
             if (form.sobrenome.trim()) salvar()

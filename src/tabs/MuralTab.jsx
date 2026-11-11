@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { BookOpen, Info, MessageCircle, Send } from 'lucide-react'
 import { POSTS, REACOES, RELATOS, SENTIDOS } from '../data/content'
 import { useStore } from '../lib/store.jsx'
-import Illustration from '../components/Illustration.jsx'
+import Foto from '../components/Foto.jsx'
+import { fotoDe } from '../data/imagens'
 import AudioRecorder, { AudioPlayer } from '../components/AudioRecorder.jsx'
 import Sheet from '../components/Sheet.jsx'
 import { useToast } from '../components/Toast.jsx'
@@ -27,20 +28,20 @@ const iniciais = (nome = '?') =>
 
 function Comment({ c }) {
   return (
-    <li className="flex gap-3">
-      <div className={`grid h-10 w-10 shrink-0 place-items-center rounded-full font-bold ${c.origem === 'seed' ? 'bg-latao-claro/60 text-vagao-escuro' : 'bg-vagao text-papel'}`} aria-hidden>
+    <li className="flex gap-2.5">
+      <div className={`grid h-8 w-8 shrink-0 place-items-center rounded-full text-[12px] font-bold ${c.origem === 'seed' ? 'bg-latao-claro/60 text-vagao-escuro' : 'bg-vagao text-papel'}`} aria-hidden>
         {iniciais(c.autor)}
       </div>
-      <div className="min-w-0 flex-1 rounded-2xl bg-papel-escuro px-4 py-3">
-        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-base font-bold leading-tight">
+      <div className="min-w-0 flex-1 rounded-xl bg-papel-escuro px-3 py-2">
+        <p className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[14px] font-bold leading-tight">
           {c.autor}
           {c.idade && <span className="font-normal text-tinta-suave">{c.idade} anos</span>}
           {c.ficticio && <span className="selo-ficticio">relato fictício</span>}
         </p>
-        {c.relacao && <p className="text-sm text-tinta-suave">{c.relacao}</p>}
-        {c.texto && <p className="mt-1 text-base leading-relaxed">{c.texto}</p>}
+        {c.relacao && <p className="text-[12px] text-tinta-suave">{c.relacao}</p>}
+        {c.texto && <p className="mt-1 text-[15px] leading-relaxed">{c.texto}</p>}
         {c.audio && <AudioPlayer audio={c.audio} />}
-        <p className="mt-1 text-xs text-tinta-suave">{quando(c.ts)}</p>
+        <p className="mt-0.5 text-[11px] text-tinta-suave">{quando(c.ts)}</p>
       </div>
     </li>
   )
@@ -55,7 +56,7 @@ function Post({ post }) {
   const [mostrarTodos, setMostrarTodos] = useState(false)
   const [info, setInfo] = useState(false)
   const comments = state.comments[post.id] || []
-  const visiveis = mostrarTodos ? comments : comments.slice(-2)
+  const visiveis = mostrarTodos ? comments : comments.slice(-1)
   const counts = state.reactions[post.id] || {}
   const mine = state.myReactions[post.id] || {}
 
@@ -70,29 +71,24 @@ function Post({ post }) {
 
   return (
     <article className="cartao overflow-hidden">
-      <header className="flex items-center gap-3 px-4 py-3">
-        <div className="grid h-11 w-11 place-items-center rounded-full border-2 border-latao bg-vagao font-titulo font-bold text-latao" aria-hidden>
-          EM
-        </div>
-        <div className="min-w-0 flex-1">
-          <h2 className="font-titulo text-lg font-bold leading-tight text-vagao">{post.titulo}</h2>
-          <p className="text-sm text-tinta-suave">📍 {post.local}</p>
-        </div>
-      </header>
       <div className="relative">
-        <Illustration name={post.ilustracao} title={post.titulo} className="block aspect-[400/220] w-full" />
+        <Foto lugar={`post:${post.id}`} ilustracao={post.ilustracao} titulo={post.titulo} className="block aspect-[400/220] w-full" />
+        <span className="absolute bottom-2 left-2 rounded-full bg-papel/95 px-2.5 py-1 text-[12px] font-bold text-vagao shadow">📍 {post.local}</span>
         <button
           onClick={() => setInfo((v) => !v)}
-          className="absolute bottom-3 right-3 flex min-h-[44px] items-center gap-1 rounded-full bg-papel/95 px-3 text-sm font-bold text-vagao shadow"
+          className="absolute bottom-2 right-2 flex min-h-[36px] items-center gap-1 rounded-full bg-vagao/90 px-3 text-[13px] font-bold text-papel shadow"
           aria-expanded={info}
         >
-          <Info size={18} /> Você sabia?
+          <Info size={16} /> Você sabia?
         </button>
       </div>
-      {info && <p className="border-b border-papel-borda bg-latao-claro/25 px-4 py-3 text-base leading-relaxed">{post.curiosidade}</p>}
-      <p className="px-4 pt-3 text-lg leading-relaxed">{post.legenda}</p>
+      {info && <p className="border-b border-papel-borda bg-latao-claro/25 px-4 py-3 text-[15px] leading-relaxed">{post.curiosidade}</p>}
+      <div className="px-4 pt-3">
+        <h2 className="font-titulo text-[1.15rem] font-bold leading-snug text-vagao">{post.titulo}</h2>
+        <p className="mt-1 text-[15px] leading-relaxed text-tinta">{post.legenda}</p>
+      </div>
 
-      <div className="grid gap-2 px-4 py-3" role="group" aria-label="Reações afetivas">
+      <div className="grid grid-cols-3 gap-2 px-4 py-3" role="group" aria-label="Reações afetivas">
         {REACOES.map((r) => {
           const on = !!mine[r.key]
           return (
@@ -100,45 +96,46 @@ function Post({ post }) {
               key={r.key}
               onClick={() => actions.toggleReaction(post.id, r.key)}
               aria-pressed={on}
-              className={`flex min-h-[52px] items-center gap-3 rounded-xl border-2 px-4 text-left text-base font-bold transition active:scale-[0.99] ${
+              aria-label={`${r.label}: ${counts[r.key] || 0}`}
+              className={`flex min-h-[64px] flex-col items-center justify-center gap-0.5 rounded-xl border-2 px-1 py-1.5 text-center transition active:scale-[0.97] ${
                 on ? 'border-tijolo bg-tijolo text-papel' : 'border-papel-borda bg-white text-tinta hover:border-tijolo'
               }`}
             >
-              <span className="text-2xl" aria-hidden>
-                {r.emoji}
+              <span className="flex items-center gap-1 text-[15px] font-bold">
+                <span aria-hidden>{r.emoji}</span>
+                <span className="font-maquina">{counts[r.key] || 0}</span>
               </span>
-              <span className="flex-1">{r.label}</span>
-              <span className={`min-w-[2.5rem] rounded-full px-2 py-0.5 text-center font-maquina ${on ? 'bg-papel/20' : 'bg-papel-escuro'}`}>{counts[r.key] || 0}</span>
+              <span className={`text-[11.5px] font-bold leading-tight ${on ? 'text-papel' : 'text-tinta-suave'}`}>{r.label}</span>
             </button>
           )
         })}
       </div>
 
-      <section className="border-t border-papel-borda px-4 py-4">
-        <h3 className="mb-3 flex items-center gap-2 text-base font-bold text-vagao">
-          <MessageCircle size={20} /> Memórias dos moradores ({comments.length})
+      <section className="border-t border-papel-borda px-4 py-3">
+        <h3 className="mb-2 flex items-center gap-2 text-[15px] font-bold text-vagao">
+          <MessageCircle size={18} /> Memórias dos moradores ({comments.length})
         </h3>
-        {comments.length > 2 && !mostrarTodos && (
-          <button onClick={() => setMostrarTodos(true)} className="mb-3 text-base font-bold text-tijolo underline underline-offset-4">
+        {comments.length > 1 && !mostrarTodos && (
+          <button onClick={() => setMostrarTodos(true)} className="mb-2 text-sm font-bold text-tijolo underline underline-offset-4">
             Ver todas as {comments.length} memórias
           </button>
         )}
-        <ul className="space-y-3">
+        <ul className="space-y-2">
           {visiveis.map((c) => (
             <Comment key={c.id} c={c} />
           ))}
         </ul>
 
         {!aberto ? (
-          <button onClick={() => setAberto(true)} className="btn-verde mt-4 w-full">
+          <button onClick={() => setAberto(true)} className="btn-verde mt-3 w-full">
             ✍️ Contar a minha lembrança
           </button>
         ) : (
-          <div className="mt-4 space-y-3">
-            <p className="text-base font-bold">Toque numa frase para começar ou escreva do seu jeito:</p>
+          <div className="mt-3 space-y-2.5">
+            <p className="text-[15px] font-bold">Toque numa frase para começar ou escreva do seu jeito:</p>
             <div className="flex flex-wrap gap-2">
               {post.respostasRapidas.map((r) => (
-                <button key={r} onClick={() => setTexto((t) => (t ? `${t} ${r}` : r))} className="rounded-full border-2 border-latao bg-latao-claro/20 px-3 py-2 text-left text-sm font-bold text-tinta">
+                <button key={r} onClick={() => setTexto((t) => (t ? `${t} ${r}` : r))} className="rounded-full border-2 border-latao bg-latao-claro/20 px-3 py-1.5 text-left text-[13px] font-bold text-tinta">
                   “{r}”
                 </button>
               ))}
@@ -170,12 +167,14 @@ function SentidoCard({ sentido }) {
   const [texto, setTexto] = useState('')
   const [feito, setFeito] = useState(false)
   return (
-    <aside className="rounded-2xl border-2 border-dashed border-vagao/40 bg-neblina-claro/60 p-4">
+    <aside className="overflow-hidden rounded-2xl border-2 border-dashed border-vagao/40 bg-neblina-claro/60">
+      {fotoDe(`sentido:${sentido.id}`) && <Foto lugar={`sentido:${sentido.id}`} titulo={sentido.titulo} className="block aspect-[400/180] w-full" />}
+      <div className="p-4">
       <p className="font-maquina text-xs uppercase tracking-[0.2em] text-vagao">Sons e cheiros da Serra</p>
-      <h2 className="mt-1 font-titulo text-xl font-bold text-vagao">
+      <h2 className="mt-0.5 font-titulo text-lg font-bold text-vagao">
         <span aria-hidden>{sentido.emoji}</span> {sentido.titulo}
       </h2>
-      <p className="mt-1 text-base leading-relaxed">{sentido.texto}</p>
+      <p className="mt-1 text-[15px] leading-relaxed">{sentido.texto}</p>
       {feito ? (
         <p className="mt-3 rounded-xl bg-vagao px-4 py-3 text-base font-bold text-papel">Lembrança guardada. Muito obrigado! 🌿</p>
       ) : (
@@ -197,6 +196,7 @@ function SentidoCard({ sentido }) {
           </button>
         </div>
       )}
+      </div>
     </aside>
   )
 }
@@ -213,25 +213,25 @@ export default function MuralTab() {
   })
 
   return (
-    <div className="space-y-5 px-4 py-5">
-      <div>
+    <div className="space-y-4 px-3 py-4 sm:px-4">
+      <div className="px-1">
         <h1 className="titulo-secao">Mural da Vila</h1>
-        <p className="mt-1 text-lg text-tinta-suave">Olhe as fotos, reaja e conte o que você lembra. Toda memória conta!</p>
+        <p className="mt-0.5 text-[15px] text-tinta-suave">Olhe as fotos, reaja e conte o que você lembra. Toda memória conta!</p>
       </div>
 
       <section aria-label="Vozes da Vila">
-        <h2 className="mb-2 flex items-center gap-2 text-base font-bold text-vagao">
-          <BookOpen size={20} /> Vozes da Vila
+        <h2 className="mb-2 flex items-center gap-2 px-1 text-[15px] font-bold text-vagao">
+          <BookOpen size={18} /> Vozes da Vila
           <span className="selo-ficticio">exemplos fictícios</span>
         </h2>
-        <div className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2">
+        <div className="-mx-3 flex snap-x gap-2 overflow-x-auto px-3 pb-1 sm:-mx-4 sm:px-4">
           {RELATOS.map((r) => (
-            <button key={r.id} onClick={() => setRelato(r)} className="w-36 shrink-0 snap-start rounded-2xl border-2 border-latao bg-white p-3 text-left hover:bg-papel-escuro">
-              <div className="mb-2 grid h-12 w-12 place-items-center rounded-full bg-tijolo font-titulo text-lg font-bold text-papel">{iniciais(r.personagem)}</div>
-              <p className="text-base font-bold leading-tight">{r.personagem}</p>
-              <p className="text-sm text-tinta-suave">
-                {r.idade} anos · {r.relacao_com_a_vila}
-              </p>
+            <button key={r.id} onClick={() => setRelato(r)} className="flex w-[11.5rem] shrink-0 snap-start items-center gap-2.5 rounded-xl border-2 border-latao bg-white p-2.5 text-left hover:bg-papel-escuro">
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-tijolo font-titulo text-[15px] font-bold text-papel">{iniciais(r.personagem)}</div>
+              <span className="min-w-0">
+                <span className="block text-[14px] font-bold leading-tight">{r.personagem}</span>
+                <span className="block text-[12px] leading-tight text-tinta-suave">{r.relacao_com_a_vila}</span>
+              </span>
             </button>
           ))}
         </div>
@@ -250,7 +250,7 @@ export default function MuralTab() {
               {relato.idade} anos · {relato.relacao_com_a_vila} · {relato.decada_referida}
               <span className="selo-ficticio">relato fictício de demonstração</span>
             </p>
-            <blockquote className="border-l-4 border-latao pl-4 font-titulo text-xl italic leading-relaxed text-tinta">“{relato.texto}”</blockquote>
+            <blockquote className="border-l-4 border-latao pl-3 font-titulo text-lg italic leading-relaxed text-tinta">“{relato.texto}”</blockquote>
             <p className="rounded-xl bg-papel-escuro p-3 text-sm text-tinta-suave">
               Este relato foi criado apenas para demonstrar o protótipo. Ele será substituído por depoimentos reais, colhidos com autorização em
               entrevistas com moradores e ex-ferroviários.

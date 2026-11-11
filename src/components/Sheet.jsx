@@ -25,18 +25,18 @@ export default function Sheet({ open, onClose, title, children, tall = false, ic
         aria-modal="true"
         aria-label={title}
         onClick={(e) => e.stopPropagation()}
-        className={`anim-subir papel-textura flex w-full flex-col rounded-t-3xl border-t-4 border-latao pb-[env(safe-area-inset-bottom)] shadow-2xl outline-none sm:max-w-lg sm:rounded-3xl sm:border-4 ${
+        className={`anim-subir papel-textura relative flex w-full flex-col rounded-t-3xl border-t-4 border-latao pb-[env(safe-area-inset-bottom)] shadow-2xl outline-none sm:max-w-lg sm:rounded-3xl sm:border-4 ${
           tall ? 'h-[92dvh] sm:h-[88dvh]' : 'max-h-[88dvh]'
         }`}
       >
-        <div className="flex items-center gap-3 border-b border-papel-borda px-5 py-4">
+        <div className="flex items-center gap-2.5 border-b border-papel-borda px-4 py-3"><span aria-hidden className="absolute left-1/2 top-1.5 h-1 w-10 -translate-x-1/2 rounded-full bg-papel-borda sm:hidden" />
           {icon}
-          <h2 className="flex-1 font-titulo text-xl font-bold leading-tight text-vagao">{title}</h2>
-          <button onClick={onClose} className="grid h-12 w-12 place-items-center rounded-full bg-papel-escuro text-tinta hover:bg-papel-borda" aria-label="Fechar">
-            <X size={26} />
+          <h2 className="flex-1 font-titulo text-lg font-bold leading-tight text-vagao">{title}</h2>
+          <button onClick={onClose} className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-papel-escuro text-tinta hover:bg-papel-borda" aria-label="Fechar">
+            <X size={22} />
           </button>
         </div>
-        <div className="flex-1 overflow-y-auto px-5 py-5">{children}</div>
+        <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-4">{children}</div>
       </div>
     </div>,
     document.body,
