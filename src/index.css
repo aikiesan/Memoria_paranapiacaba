@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Linguagem visual: "álbum de família + bilhete da SPR".
+  Papel de linho com grão, fotos como cópias de papel coladas com cantoneiras,
+  legendas escritas à mão, carimbos de borracha e o bilhete Edmondson da ferrovia.
+  O grão vem de um ruído SVG embutido (sem imagem externa).
+*/
+:root {
+  --grao: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.13 0 0 0 0 0.1 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
 @layer base {
   html {
     font-size: 100%;
@@ -13,80 +23,210 @@
   body {
     @apply font-corpo text-tinta antialiased;
     min-height: 100dvh;
-    background-color: #f7f3e8;
-    background-image: repeating-linear-gradient(0deg, rgba(42, 36, 32, 0.025) 0 1px, transparent 1px 28px);
+    background-color: #f6f0e1;
+    background-image: var(--grao), radial-gradient(ellipse at 50% -10%, rgba(255, 255, 255, 0.55), transparent 60%);
   }
   :focus-visible {
-    outline: 3px solid #c59b27;
-    outline-offset: 2px;
+    outline: 3px solid #8b261d;
+    outline-offset: 3px;
+    border-radius: 6px;
   }
   button {
     -webkit-tap-highlight-color: transparent;
+  }
+  ::selection {
+    background: #e2c46a;
   }
 }
 
 @layer components {
   .papel-textura {
-    background-color: #f7f3e8;
-    background-image: repeating-linear-gradient(0deg, rgba(42, 36, 32, 0.025) 0 1px, transparent 1px 28px),
-      radial-gradient(circle at 30% 20%, rgba(197, 155, 39, 0.06), transparent 60%);
+    background-color: #f6f0e1;
+    background-image: var(--grao);
   }
+
+  /* Botões: tinta chapada com a borda de baixo mais escura, como um botão de painel antigo. */
   .btn {
-    @apply inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl px-4 py-2 text-[15px] font-bold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg px-4 py-2 text-[16px] font-bold transition active:translate-y-px disabled:cursor-not-allowed disabled:opacity-50;
   }
   .btn-primario {
-    @apply btn bg-tijolo text-papel shadow-cartao hover:bg-tijolo-claro;
+    @apply btn bg-tijolo text-papel-claro shadow-tinta hover:bg-tijolo-claro;
   }
   .btn-verde {
-    @apply btn bg-vagao text-papel shadow-cartao hover:bg-vagao-claro;
+    @apply btn bg-vagao text-papel-claro shadow-tinta hover:bg-vagao-claro;
   }
   .btn-whatsapp {
-    @apply btn bg-[#1F7A4A] text-white shadow-cartao hover:bg-[#186139];
+    @apply btn bg-[#1F7A4A] text-white shadow-tinta hover:bg-[#186139];
   }
   .btn-contorno {
-    @apply btn border-2 border-vagao bg-papel text-vagao hover:bg-papel-escuro;
+    @apply btn border-2 border-vagao bg-papel-claro text-vagao hover:bg-papel-escuro;
   }
   .btn-fantasma {
-    @apply btn text-tinta-suave hover:bg-papel-escuro;
+    @apply btn text-tinta-suave underline-offset-4 hover:bg-papel-escuro hover:underline;
   }
+
+  /* Folha de papel: o cartão básico */
   .cartao {
-    @apply rounded-xl sm:rounded-2xl border border-papel-borda bg-papel shadow-cartao;
+    @apply rounded-md border border-papel-borda bg-papel-claro shadow-cartao;
   }
+
   .campo {
-    @apply w-full rounded-xl border-2 border-papel-borda bg-white px-3.5 py-2.5 text-base text-tinta placeholder:text-neblina-escuro focus:border-vagao focus:outline-none;
+    @apply w-full rounded-md border-2 border-papel-borda bg-white px-3.5 py-2.5 text-base text-tinta placeholder:text-neblina-escuro focus:border-vagao focus:outline-none;
+  }
+  /* Campo pautado, como uma folha de caderno */
+  .campo-pautado {
+    @apply campo;
+    line-height: 2rem;
+    padding-top: 0.25rem;
+    background-image: linear-gradient(transparent calc(2rem - 1px), rgba(30, 63, 32, 0.16) calc(2rem - 1px));
+    background-size: 100% 2rem;
+    background-attachment: local;
   }
   .rotulo {
-    @apply mb-1.5 block text-[15px] font-bold text-tinta;
+    @apply mb-1.5 block text-[16px] font-bold text-tinta;
   }
   .chip {
-    @apply inline-flex min-h-[40px] items-center justify-center rounded-full border-2 px-3.5 py-1.5 text-sm font-bold transition;
+    @apply inline-flex min-h-[44px] items-center justify-center rounded-md border-2 px-3.5 py-1.5 text-[15px] font-bold transition;
   }
   .chip-off {
     @apply chip border-papel-borda bg-white text-tinta hover:border-vagao;
   }
   .chip-on {
-    @apply chip border-vagao bg-vagao text-papel;
+    @apply chip border-vagao bg-vagao text-papel-claro;
   }
   .titulo-secao {
-    @apply font-titulo text-[1.4rem] font-bold leading-tight text-vagao sm:text-2xl;
+    @apply font-titulo text-[1.65rem] font-extrabold leading-[1.1] text-vagao sm:text-[1.9rem];
+  }
+  /* Sublinhado traçado à mão sob os títulos */
+  .traco-mao {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5.5c30-3 62-3.5 96-2.2 34 1.2 66 .4 100-2' fill='none' stroke='%23C59B27' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 100% 0.45em;
+    padding-bottom: 0.2em;
+  }
+  .legenda-mao {
+    @apply font-mao text-[1.15rem] leading-snug text-tinta;
   }
   .selo-ficticio {
-    @apply inline-flex items-center rounded-md border border-latao-escuro/40 bg-latao-claro/30 px-1.5 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide text-latao-escuro;
+    @apply inline-flex items-center rounded-sm border border-dashed border-latao-escuro/60 bg-latao-claro/25 px-1.5 py-0.5 font-maquina text-[0.72rem] text-latao-escuro;
+  }
+
+  /* Cópia fotográfica: borda branca, sombra e um leve giro */
+  .impressa {
+    position: relative;
+    background: #fffdf7;
+    padding: 0.55rem 0.55rem 0.7rem;
+    box-shadow: 0 1px 1px rgba(42, 36, 32, 0.18), 0 12px 24px -12px rgba(42, 36, 32, 0.5);
+    transform: rotate(var(--giro, 0deg));
+  }
+  /* cantoneiras de papel kraft que prendem a foto na página */
+  .cantoneira {
+    position: absolute;
+    width: 1.7rem;
+    height: 1.7rem;
+    background: linear-gradient(135deg, #b9945f 0 50%, transparent 50%);
+    filter: drop-shadow(0 1px 0.5px rgba(42, 36, 32, 0.35));
+    z-index: 2;
+  }
+  .cantoneira.c1 {
+    top: -0.3rem;
+    left: -0.3rem;
+  }
+  .cantoneira.c2 {
+    top: -0.3rem;
+    right: -0.3rem;
+    transform: rotate(90deg);
+  }
+  .cantoneira.c3 {
+    bottom: -0.3rem;
+    right: -0.3rem;
+    transform: rotate(180deg);
+  }
+  .cantoneira.c4 {
+    bottom: -0.3rem;
+    left: -0.3rem;
+    transform: rotate(270deg);
+  }
+  /* cópias de baixo, quando o lugar tem mais de uma foto */
+  .pilha::before,
+  .pilha::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #fbf6ea;
+    box-shadow: 0 1px 2px rgba(42, 36, 32, 0.25);
+    z-index: -1;
+  }
+  .pilha::before {
+    transform: rotate(2.4deg) translate(6px, 2px);
+  }
+  .pilha::after {
+    transform: rotate(-1.8deg) translate(-4px, 4px);
+  }
+
+  /* Pedaço de fita adesiva segurando um bilhete */
+  .fita {
+    position: absolute;
+    top: -0.55rem;
+    left: 50%;
+    width: 4.2rem;
+    height: 1.1rem;
+    transform: translateX(-50%) rotate(-3deg);
+    background: rgba(226, 207, 169, 0.75);
+    box-shadow: 0 1px 1px rgba(42, 36, 32, 0.12);
+  }
+  /* Bilhete de papel colado no álbum (comentários) */
+  .recado {
+    @apply relative rounded-sm px-3.5 pb-2.5 pt-3.5;
+    background: #fffdf5;
+    box-shadow: 0 1px 2px rgba(42, 36, 32, 0.18);
+  }
+
+  /* Carimbo de borracha (reações, selos do bilhete) */
+  .carimbo {
+    @apply relative flex flex-col items-center justify-center rounded-md border-[2.5px] border-dashed text-center transition;
+  }
+  .carimbo-off {
+    @apply carimbo border-tinta/30 bg-transparent text-tinta-suave hover:border-tijolo hover:text-tijolo;
+  }
+  .carimbo-on {
+    @apply carimbo border-solid border-tijolo bg-tijolo/[0.07] text-tijolo;
+    transform: rotate(-2deg);
+  }
+
+  /* Borda picotada de bilhete, usada no topo da barra de navegação */
+  .picote-topo {
+    position: relative;
+  }
+  .picote-topo::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -6px;
+    height: 12px;
+    background: radial-gradient(circle at 6px 6px, #f6f0e1 4px, transparent 4.5px) repeat-x;
+    background-size: 14px 12px;
+  }
+  .regua-dupla {
+    border-top: 3px double rgba(30, 63, 32, 0.45);
   }
 }
 
 /* Leaflet: tom "mapa antigo" */
 .leaflet-container {
   font-family: 'Atkinson Hyperlegible', system-ui, sans-serif;
-  background: #ede5d0;
+  background: #ece2cb;
 }
 .mapa-antigo .leaflet-tile-pane {
-  filter: sepia(0.35) saturate(0.85) contrast(0.95);
+  filter: sepia(0.4) saturate(0.8) contrast(0.95);
 }
 .leaflet-popup-content-wrapper {
-  border-radius: 16px;
-  background: #f7f3e8;
-  border: 2px solid #c59b27;
+  border-radius: 4px;
+  background: #fffdf5;
+  border: 1px solid #d5c6a2;
+  box-shadow: 0 10px 24px -10px rgba(42, 36, 32, 0.5);
 }
 .leaflet-popup-content {
   margin: 14px 16px;
@@ -94,7 +234,7 @@
   line-height: 1.4;
 }
 .leaflet-popup-tip {
-  background: #c59b27;
+  background: #fffdf5;
 }
 .pin-familia {
   background: transparent;
@@ -114,21 +254,21 @@
   animation: onda 0.9s ease-in-out infinite;
   transform-origin: center;
 }
-@keyframes carimbo {
+@keyframes carimbar {
   0% {
-    transform: scale(1.8) rotate(-18deg);
+    transform: scale(1.6) rotate(-14deg);
     opacity: 0;
   }
-  70% {
-    transform: scale(0.92) rotate(-8deg);
+  60% {
+    transform: scale(0.94) rotate(-6deg);
     opacity: 1;
   }
   100% {
-    transform: scale(1) rotate(-8deg);
+    transform: scale(1) rotate(-6deg);
   }
 }
 .anim-carimbo {
-  animation: carimbo 0.5s ease-out both;
+  animation: carimbar 0.45s ease-out both;
 }
 @keyframes subir {
   from {
@@ -143,10 +283,28 @@
 .anim-subir {
   animation: subir 0.28s ease-out both;
 }
+@keyframes revelar {
+  from {
+    opacity: 0;
+    filter: sepia(0.8) brightness(1.15);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+  }
+}
+.anim-revelar {
+  animation: revelar 0.6s ease-out both;
+}
 @media (prefers-reduced-motion: reduce) {
   .onda-barra,
   .anim-carimbo,
-  .anim-subir {
+  .anim-subir,
+  .anim-revelar {
     animation: none;
+  }
+  .impressa,
+  .carimbo-on {
+    transform: none;
   }
 }

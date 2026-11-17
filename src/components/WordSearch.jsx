@@ -247,7 +247,7 @@ export default function WordSearch() {
 
       {qtd === total && (
         <div className="cartao space-y-2 p-4 text-center">
-          <p className="font-titulo text-lg font-bold text-vagao">🎉 Você encontrou todas as palavras da Serra!</p>
+          <p className="font-titulo text-lg font-bold text-vagao">Você encontrou todas as palavras da Serra!</p>
           <button className="btn-fantasma mx-auto" onClick={actions.resetWordSearch}>
             <RotateCcw size={20} /> Jogar de novo
           </button>
@@ -286,14 +286,14 @@ export default function WordSearch() {
               <label htmlFor="ws-com" className="rotulo">
                 Quer contar mais? (opcional)
               </label>
-              <textarea id="ws-com" rows={3} className="campo resize-none" value={comentario} onChange={(e) => setComentario(e.target.value)} placeholder="Uma lembrança, uma história, um nome…" maxLength={800} />
+              <textarea id="ws-com" rows={3} className="campo-pautado resize-none" value={comentario} onChange={(e) => setComentario(e.target.value)} placeholder="Uma lembrança, uma história, um nome…" maxLength={800} />
             </div>
             <button
               className="btn-primario w-full"
               onClick={() => {
                 actions.saveWordFind(achada.palavra, { sentimento, comentario: comentario.trim() })
                 setAchada(null)
-                toast('Obrigado por compartilhar! 💛')
+                toast('Obrigado por compartilhar!')
               }}
             >
               Guardar e continuar

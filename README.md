@@ -24,11 +24,19 @@ Faz parte do projeto **FAPESP / PUC-Campinas** de apoio à candidatura de Parana
 | 📍 **Mapa de Sobrenomes** | Mapa Leaflet centrado na vila (`-23.7780, -46.2995`, zoom 17) com pins de famílias ferroviárias. Botão **“+ Cravar Memória da Minha Família no Mapa”**: toca-se no mapa, preenche sobrenome, parente, ofício e uma lembrança, e o pin aparece na hora. | Pins geolocalizados (lat/lng) com relato |
 | 📊 **Painel do Pesquisador** (topo) | Estatísticas em tempo real, reações por local, sentimentos, download **.json** e **.csv** e botão **Resetar dados de demonstração**. | — |
 
+### Identidade visual: álbum de família + bilhete da SPR
+
+O app imita um álbum de família folheado junto com o bilhete Edmondson da São Paulo Railway: papel de linho com grão,
+fotos como cópias de papel presas por cantoneiras, legendas escritas à mão, carimbos de borracha para as reações,
+recados colados com fita para as memórias dos moradores e a barra de navegação com borda picotada de bilhete.
+Os estilos ficam em [`src/index.css`](src/index.css) (`.impressa`, `.cantoneira`, `.carimbo-*`, `.recado`, `.fita`,
+`.picote-topo`, `.campo-pautado`) e as cores e fontes em [`tailwind.config.js`](tailwind.config.js).
+
 ### Acessibilidade e linguagem
 
 - Botões com no mínimo 48–52 px de altura, texto do corpo ≥ 16 px, alto contraste e ícones grandes (Lucide).
 - Botão **“T”** no topo aumenta as letras de todo o app (preferência salva no aparelho).
-- Fonte **Atkinson Hyperlegible** (desenhada para baixa visão) no corpo; *Playfair Display* e *Special Elite* nos títulos e no bilhete.
+- Fonte **Atkinson Hyperlegible** (desenhada para baixa visão) no corpo; *Alegreya* nos títulos, *Kalam* (letra de mão) nas legendas das fotos e *Special Elite* (máquina de escrever) no bilhete.
 - Linguagem de conversa, sem termos acadêmicos. Respeita `prefers-reduced-motion`.
 - Site responsivo: abre em tela cheia em qualquer celular, tablet ou computador (basta compartilhar o link). O conteúdo fica centralizado em telas grandes e a navegação fica sempre ao alcance do polegar.
 
@@ -63,10 +71,22 @@ Pontos a validar com ex-ferroviários antes de publicar: a nomenclatura exata de
 
 ### Fotografias
 
-As fotos ficam em [`src/assets/imagens/`](src/assets/imagens/) e os créditos em `creditos.json`, na mesma pasta.
+**Acervo do projeto.** As fotos `acervo_*.webp` foram feitas pela equipe com moradores da vila e são creditadas como
+*Acervo Estação de Memória (FAPESP/PUC-Campinas)*, CC BY 4.0. Os originais (HEIC/JPG) **não** entram no repositório.
+Para converter fotos novas, acrescente uma linha em [`scripts/processar_fotos.py`](scripts/processar_fotos.py) (recorte 3:2,
+ponto central e áreas a desfocar) e rode:
+
+```bash
+uv run --with pillow --with pillow-heif python scripts/processar_fotos.py "<pasta com os originais>"
+```
+
+O script corrige a orientação, recorta, desfoca rostos indicados, reduz para 1200 × 800 e grava WebP **sem metadados**
+(remove o GPS e o modelo do celular). Quando um lugar tem várias fotos, o card vira uma pilha que se folheia.
+
+**Fotos de licença aberta.** As demais fotos ficam em [`src/assets/imagens/`](src/assets/imagens/) e os créditos em `creditos.json`, na mesma pasta.
 Para incluir uma foto nova, **basta colocar o arquivo `.webp` nessa pasta com o nome indicado no `creditos.json`**
 (dá para fazer pelo próprio GitHub: *Add file → Upload files*). No próximo deploy a foto aparece sozinha, com o
-crédito e a licença sobre a imagem e na lista do Painel do Pesquisador. Enquanto o arquivo não existir, o app usa a
+crédito e a licença sob a imagem e na lista do Painel do Pesquisador. Enquanto o arquivo não existir, o app usa a
 ilustração vetorial provisória (`src/components/Illustration.jsx`).
 
 Onde cada foto aparece (e quais itens do acervo estão em revisão) é definido em [`src/data/imagens.js`](src/data/imagens.js).
@@ -106,6 +126,7 @@ src/
 ├── data/content.js             # todo o conteúdo (vocabulário, locais, quiz, palavras, relatos, pins)
 ├── lib/store.jsx               # estado global + persistência em localStorage
 ├── lib/export.js               # estatísticas e exportação JSON/CSV
-├── components/                 # Illustration, AudioRecorder, Quiz, WordSearch, ResearcherPanel, Sheet, Toast
+├── components/                 # Foto (cópia de álbum), Illustration, AudioRecorder, Quiz, WordSearch, ResearcherPanel, Sheet, Toast
 └── tabs/                       # BilheteTab, MuralTab, JogosTab, MapaTab
+scripts/processar_fotos.py      # converte as fotos do acervo para WebP sem metadados
 ```

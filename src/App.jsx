@@ -45,20 +45,20 @@ export default function App() {
     <ToastProvider>
       {/* Site responsivo: tela cheia em qualquer aparelho, rolagem natural da página */}
       <div className={`flex flex-col ${isMapa ? 'h-[100dvh]' : 'min-h-[100dvh]'}`}>
-        <header className="sticky top-0 z-[1100] bg-vagao pt-[env(safe-area-inset-top)] text-papel shadow-md">
-          <div className="mx-auto flex w-full max-w-3xl items-center gap-2 px-3 py-2 sm:px-4 sm:py-3">
-            <div className="hidden h-9 w-9 shrink-0 place-items-center rounded-full border-2 border-latao bg-vagao-escuro font-titulo text-[13px] font-bold text-latao min-[400px]:grid" aria-hidden>
-              EM
-            </div>
+        <header className="papel-textura sticky top-0 z-[1100] border-b border-papel-borda pt-[env(safe-area-inset-top)] shadow-[0_6px_14px_-12px_rgba(42,36,32,0.6)]">
+          <div className="mx-auto flex w-full max-w-3xl items-center gap-2.5 px-3 py-2 sm:px-4 sm:py-2.5">
+            <svg viewBox="0 0 40 40" className="hidden h-10 w-10 shrink-0 min-[380px]:block" aria-hidden>
+              <circle cx="20" cy="20" r="18" fill="none" stroke="#8B261D" strokeWidth="2" />
+              <circle cx="20" cy="20" r="14.5" fill="none" stroke="#8B261D" strokeWidth="1" strokeDasharray="2 2" />
+              <text x="20" y="24.5" textAnchor="middle" fontFamily="Alegreya, Georgia, serif" fontWeight="800" fontSize="12.5" fill="#8B261D">SPR</text>
+            </svg>
             <div className="min-w-0 flex-1">
-              <p className="truncate font-titulo text-[16px] font-bold leading-tight sm:text-xl">Estação de Memória</p>
-              <p className="truncate text-[11px] text-papel/75 sm:text-sm">
-                Paranapiacaba<span className="hidden sm:inline"> · Serra do Mar</span>
-              </p>
+              <p className="truncate font-titulo text-[1.2rem] font-extrabold leading-none text-vagao sm:text-[1.45rem]">Estação de Memória</p>
+              <p className="mt-0.5 truncate font-mao text-[15px] leading-tight text-tijolo sm:text-[16px]">Paranapiacaba, Serra do Mar</p>
             </div>
             <button
               onClick={actions.toggleLargeText}
-              className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg border-2 ${state.prefs.largeText ? 'border-latao bg-latao text-vagao-escuro' : 'border-papel/30 text-papel'}`}
+              className={`grid h-11 w-11 shrink-0 place-items-center rounded-md border-2 ${state.prefs.largeText ? 'border-vagao bg-vagao text-papel-claro' : 'border-papel-borda bg-papel-claro text-vagao'}`}
               aria-pressed={state.prefs.largeText}
               aria-label="Aumentar o tamanho das letras"
               title="Letras maiores"
@@ -67,16 +67,18 @@ export default function App() {
             </button>
             <button
               onClick={() => setPanelOpen(true)}
-              className="flex h-10 shrink-0 items-center gap-1.5 rounded-lg bg-latao px-3 text-[14px] font-bold text-vagao-escuro hover:bg-latao-claro"
+              className="flex h-11 shrink-0 items-center gap-1.5 rounded-md border-2 border-papel-borda bg-papel-claro px-3 text-[14px] font-bold text-vagao hover:border-vagao"
               aria-label="Abrir Painel do Pesquisador e exportar dados"
             >
               <ChartColumn size={18} />
-              Painel<span className="hidden sm:inline"> do Pesquisador</span>
+              <span className="hidden min-[400px]:inline">
+                Pesquisa<span className="hidden sm:inline"> e dados</span>
+              </span>
             </button>
           </div>
         </header>
 
-        {storageWarning && <div className="bg-tijolo px-4 py-2 text-center text-sm font-bold text-papel">{storageWarning}</div>}
+        {storageWarning && <div className="bg-tijolo px-4 py-2 text-center text-sm font-bold text-papel-claro">{storageWarning}</div>}
 
         <main className={`relative flex-1 ${isMapa ? 'min-h-0' : ''}`}>
           {isMapa ? (
@@ -90,8 +92,8 @@ export default function App() {
           )}
         </main>
 
-        <nav className="sticky bottom-0 z-[1100] border-t-4 border-latao bg-vagao pb-[env(safe-area-inset-bottom)]" aria-label="Navegação principal">
-          <div className="mx-auto grid w-full max-w-3xl grid-cols-4">
+        <nav className="picote-topo sticky bottom-0 z-[1100] bg-[#EFE3C4] pb-[env(safe-area-inset-bottom)] shadow-[0_-6px_14px_-10px_rgba(42,36,32,0.5)]" aria-label="Navegação principal">
+          <div className="mx-auto grid w-full max-w-3xl grid-cols-4 divide-x-2 divide-dashed divide-kraft/60 pt-1">
             {TABS.map(({ id, label, icon: Icon }) => {
               const active = tab === id
               return (
@@ -99,12 +101,13 @@ export default function App() {
                   key={id}
                   onClick={() => setTab(id)}
                   aria-current={active ? 'page' : undefined}
-                  className={`flex min-h-[56px] flex-col items-center justify-center gap-0.5 px-1 text-[12px] font-bold leading-tight transition sm:min-h-[64px] sm:text-[14px] ${
-                    active ? 'bg-vagao-escuro text-latao' : 'text-papel/80 hover:text-papel'
+                  className={`relative flex min-h-[60px] flex-col items-center justify-center gap-0.5 px-1 text-[13px] font-bold leading-tight transition sm:min-h-[64px] sm:text-[15px] ${
+                    active ? 'text-tijolo' : 'text-tinta-suave hover:text-vagao'
                   }`}
                 >
-                  <Icon size={22} strokeWidth={active ? 2.6 : 2} />
-                  <span className="text-center">{label}</span>
+                  <Icon size={23} strokeWidth={active ? 2.5 : 1.9} />
+                  <span className={`text-center ${active ? 'font-titulo text-[15px] font-extrabold sm:text-[17px]' : ''}`}>{label}</span>
+                  {active && <span className="absolute inset-x-[22%] bottom-1 h-[3px] rounded-full bg-tijolo" aria-hidden />}
                 </button>
               )
             })}
