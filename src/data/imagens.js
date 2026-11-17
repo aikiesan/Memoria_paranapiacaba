@@ -1,8 +1,8 @@
-// Fotografias que substituem as ilustrações provisórias.
+// Fotografias dos lugares de memória.
 //
 // Como funciona: basta colocar o arquivo .webp em src/assets/imagens/ com o nome
 // indicado em `creditos.json`. No próximo deploy a foto aparece automaticamente;
-// enquanto o arquivo não existir, o app continua usando a ilustração vetorial.
+// enquanto não houver foto, o lugar aparece só com o texto.
 // As fotos do acervo do projeto são geradas por scripts/processar_fotos.py.
 import manifesto from '../assets/imagens/creditos.json'
 

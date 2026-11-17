@@ -93,7 +93,7 @@ export default function Quiz() {
       </div>
 
       <article className="space-y-4">
-        <Foto key={q.id} lugar={`quiz:${q.id}`} ilustracao={q.ilustracao} titulo={q.termo} giro={idx % 2 ? 0.8 : -0.9} />
+        <Foto key={q.id} lugar={`quiz:${q.id}`} giro={idx % 2 ? 0.8 : -0.9} />
         <div className="cartao space-y-3 p-4">
           <p className="flex items-baseline justify-between gap-2">
             <span className="font-mao text-[18px] text-tijolo">{q.termo}</span>

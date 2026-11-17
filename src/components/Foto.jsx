@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import Illustration from './Illustration.jsx'
 import { fotosDe } from '../data/imagens'
 
 // Crédito curto debaixo da cópia: autor e licença, com link quando houver página de origem.
@@ -26,10 +25,10 @@ function Credito({ foto }) {
 /**
  * Foto do lugar como uma cópia de papel colada no álbum.
  * - Várias fotos para o mesmo lugar viram uma pilha que se folheia (botões ou arrastar).
- * - Sem foto, mostra a ilustração provisória na mesma moldura.
+ * - Sem foto, não mostra nada (o lugar aparece só com o texto).
  * `moldura={false}` mostra só a imagem (usado em cartões menores).
  */
-export default function Foto({ lugar, ilustracao, titulo, legenda, giro = 0, moldura = true, proporcao = 'aspect-[3/2]' }) {
+export default function Foto({ lugar, legenda, giro = 0, moldura = true, proporcao = 'aspect-[3/2]' }) {
   const fotos = fotosDe(lugar)
   const [i, setI] = useState(0)
   const [falhas, setFalhas] = useState({})
@@ -53,15 +52,12 @@ export default function Foto({ lugar, ilustracao, titulo, legenda, giro = 0, mol
       onError={() => setFalhas((f) => ({ ...f, [foto.slug]: true }))}
       className={`anim-revelar block w-full ${proporcao} bg-papel-escuro object-cover`}
     />
-  ) : ilustracao ? (
-    // os desenhos são 400 x 220: mantém a proporção deles para não cortar textos nas bordas
-    <Illustration name={ilustracao} title={titulo} className="block aspect-[400/220] w-full" />
   ) : null
 
   if (!imagem) return null
   if (!moldura) return imagem
 
-  const texto = foto?.caption || legenda
+  const texto = foto.caption || legenda
 
   return (
     <figure className="m-0 px-1.5 pt-1.5">
@@ -87,7 +83,9 @@ export default function Foto({ lugar, ilustracao, titulo, legenda, giro = 0, mol
       </div>
 
       <div className="mt-2 flex items-start justify-between gap-3 px-1">
-        <div className="min-w-0 flex-1">{foto ? <Credito foto={foto} /> : <p className="mt-1 text-[12px] text-tinta-suave">Desenho provisório: ainda procuramos uma foto deste lugar.</p>}</div>
+        <div className="min-w-0 flex-1">
+          <Credito foto={foto} />
+        </div>
         {varias && (
           <div className="flex shrink-0 items-center gap-1" role="group" aria-label="Folhear as fotos">
             <button onClick={() => ir(-1)} className="grid h-11 w-11 place-items-center rounded-full border-2 border-papel-borda bg-papel-claro text-vagao hover:border-vagao" aria-label="Foto anterior">
