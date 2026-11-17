@@ -9,7 +9,7 @@
 
 Você vai reunir imagens para o protótipo **Estação de Memória — Paranapiacaba**, um WebApp mobile-first do projeto
 **FAPESP / PUC-Campinas** que apoia a candidatura de Paranapiacaba (Santo André, SP) a Patrimônio da Humanidade pela UNESCO.
-O app conversa com **idosos, ex-ferroviários e seus familiares**: as imagens precisam provocar **reconhecimento e memória
+O app conversa com **idosos, ferroviários aposentados e seus familiares**: as imagens precisam provocar **reconhecimento e memória
 afetiva** (“eu lembro disso!”), e não só ilustrar.
 
 Hoje o app usa ilustrações vetoriais provisórias. Queremos substituí-las por **fotografias históricas (de preferência entre
@@ -97,7 +97,7 @@ trabalho**, porque a pergunta é “para que servia isso?”.
 - **Prefeitura de Santo André**: Turismo, Museu Castelo, Museu do Funicular e serviços de memória/documentação; pedir autorização formal.
 - **IPHAN e CONDEPHAAT**: dossiês de tombamento costumam ter fotos e plantas, mas confirme a permissão de reprodução.
 - **Ficha da Lista Indicativa da UNESCO** (whc.unesco.org/en/tentativelists/5878/): verifique os créditos de cada imagem.
-- **Associações de preservação ferroviária** e **famílias de ex-ferroviários**: fotos de álbum de família, com **termo de autorização de uso de imagem** assinado.
+- **Associações de preservação ferroviária** e **famílias de ferroviários aposentados**: fotos de álbum de família, com **termo de autorização de uso de imagem** assinado.
 
 ## Entregáveis
 

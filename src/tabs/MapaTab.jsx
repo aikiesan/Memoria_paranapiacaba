@@ -26,9 +26,9 @@ function pinIcon(pin, novo = false) {
     iconAnchor: [22, 54],
     popupAnchor: [0, -50],
     html: `<svg width="44" height="56" viewBox="0 0 44 56" aria-hidden="true">
-      <path d="M22 54 C22 54 4 32 4 20 A18 18 0 0 1 40 20 C40 32 22 54 22 54Z" fill="${cor}" stroke="#C59B27" stroke-width="3"/>
+      <path d="M22 54 C22 54 4 32 4 20 A18 18 0 0 1 40 20 C40 32 22 54 22 54Z" fill="${cor}" stroke="#FCF9F1" stroke-width="2.5"/>
       <circle cx="22" cy="20" r="12" fill="#F7F3E8"/>
-      <text x="22" y="26" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-weight="700" font-size="16" fill="${cor}">${inicial}</text>
+      <text x="22" y="26" text-anchor="middle" font-family="Alegreya, Georgia, serif" font-weight="800" font-size="16" fill="${cor}">${inicial}</text>
       ${novo ? '<circle cx="36" cy="8" r="6" fill="#C59B27" stroke="#F7F3E8" stroke-width="2"/>' : ''}
     </svg>`,
   })
@@ -74,7 +74,7 @@ export default function MapaTab() {
   }
   const salvar = () => {
     actions.addPin({ ...form, sobrenome: form.sobrenome.trim(), parente: form.parente.trim(), lembranca: form.lembranca.trim(), lat: ponto.lat, lng: ponto.lng })
-    toast(`Família ${form.sobrenome.trim()} cravada no mapa! 📍`)
+    toast(`Família ${form.sobrenome.trim()} marcada no mapa. Obrigado!`)
     map?.flyTo([ponto.lat, ponto.lng], Math.max(map.getZoom(), 17), { duration: 0.6 })
     setModo('ver')
     setPonto(null)
@@ -124,14 +124,14 @@ export default function MapaTab() {
 
       {/* cabeçalho flutuante */}
       <div className="pointer-events-none absolute inset-x-3 top-3 z-[1000] mx-auto max-w-md space-y-2">
-        <div className="pointer-events-auto rounded-xl border-2 border-latao bg-papel/95 px-3 py-2 shadow-cartao backdrop-blur">
-          <h1 className="font-titulo text-[17px] font-bold leading-tight text-vagao">Mapa de Sobrenomes</h1>
+        <div className="pointer-events-auto rounded-md border border-papel-borda bg-papel-claro/95 px-3 py-2 shadow-cartao backdrop-blur">
+          <h1 className="font-titulo text-[1.25rem] font-extrabold leading-tight text-vagao">Mapa de Sobrenomes</h1>
           <p className="text-[13px] text-tinta-suave">
             {state.pins.length} memórias de {familias} famílias na vila
           </p>
         </div>
         {modo === 'escolher' && (
-          <div className="pointer-events-auto flex items-center gap-2.5 rounded-xl bg-tijolo px-3 py-2.5 text-papel shadow-cartao" role="status">
+          <div className="pointer-events-auto flex items-center gap-2.5 rounded-md bg-tijolo px-3 py-2.5 text-papel-claro shadow-cartao" role="status">
             <MapPin size={22} className="shrink-0" />
             <p className="flex-1 text-[14px] font-bold leading-snug">Toque no mapa onde ficava a casa ou o trabalho da sua família.</p>
             <button onClick={cancelar} className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-papel/20" aria-label="Cancelar">
@@ -143,15 +143,15 @@ export default function MapaTab() {
 
       <button
         onClick={() => map?.flyTo(CENTRO_VILA, 17, { duration: 0.6 })}
-        className="absolute bottom-[4.5rem] right-3 z-[1000] grid h-11 w-11 place-items-center rounded-full border-2 border-latao bg-papel text-vagao shadow-cartao"
+        className="absolute bottom-[4.5rem] right-3 z-[1000] grid h-11 w-11 place-items-center rounded-full border-2 border-papel-borda bg-papel-claro text-vagao shadow-cartao"
         aria-label="Voltar ao centro da vila"
       >
         <LocateFixed size={22} />
       </button>
 
       {modo === 'ver' && (
-        <button onClick={iniciar} className="btn-primario absolute inset-x-3 bottom-3 z-[1000] mx-auto min-h-[50px] max-w-md border-2 border-latao">
-          <Plus size={22} /> Cravar memória da minha família
+        <button onClick={iniciar} className="btn-primario absolute inset-x-3 bottom-3 z-[1000] mx-auto min-h-[52px] max-w-md">
+          <Plus size={22} /> Marcar a casa da minha família
         </button>
       )}
 
@@ -207,7 +207,7 @@ export default function MapaTab() {
               Mudar o ponto
             </button>
             <button type="submit" className="btn-primario" disabled={!form.sobrenome.trim()}>
-              📍 Cravar no mapa
+              <MapPin size={20} /> Marcar no mapa
             </button>
           </div>
         </form>

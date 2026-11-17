@@ -46,7 +46,7 @@ export default function Quiz() {
   const salvarMemoria = () => {
     if (memoria.trim()) {
       actions.addQuizMemory(q.id, q.termo, memoria)
-      toast('Memória guardada! Obrigado por contar 💛')
+      toast('Memória guardada! Obrigado por contar.')
     }
     setMemoria('')
     setDesbloqueio(null)
@@ -56,7 +56,7 @@ export default function Quiz() {
     <div className="space-y-4">
       {/* progresso */}
       <div className="flex items-center gap-3">
-        <Trophy className="text-latao-escuro" size={22} />
+        <Trophy className="text-tijolo" size={22} />
         <div className="flex-1">
           <div className="flex justify-between text-[14px] font-bold">
             <span>Memórias desbloqueadas</span>
@@ -64,8 +64,8 @@ export default function Quiz() {
               {acertadas}/{QUIZ.length}
             </span>
           </div>
-          <div className="mt-1 h-2.5 overflow-hidden rounded-full bg-papel-escuro">
-            <div className="h-full rounded-full bg-latao transition-all" style={{ width: `${(acertadas / QUIZ.length) * 100}%` }} />
+          <div className="mt-1 h-3 overflow-hidden rounded-sm border border-papel-borda bg-papel-escuro">
+            <div className="h-full bg-tijolo transition-all" style={{ width: `${(acertadas / QUIZ.length) * 100}%` }} />
           </div>
         </div>
       </div>
@@ -82,9 +82,9 @@ export default function Quiz() {
                 setErrou([])
               }}
               aria-label={`${x.termo}${ok ? ' (desbloqueada)' : ''}`}
-              className={`grid h-9 w-9 shrink-0 place-items-center rounded-full border-2 ${
-                i === idx ? 'border-tijolo' : 'border-transparent'
-              } ${ok ? 'bg-latao text-vagao-escuro' : 'bg-papel-escuro text-tinta-suave'}`}
+              className={`grid h-11 w-11 shrink-0 place-items-center rounded-full border-2 ${
+                i === idx ? 'border-tijolo ring-2 ring-tijolo/30' : 'border-dashed border-tinta/30'
+              } ${ok ? 'bg-tijolo text-papel-claro' : 'bg-papel-claro text-tinta-suave'}`}
             >
               {ok ? <Unlock size={18} /> : <Lock size={18} />}
             </button>
@@ -92,16 +92,16 @@ export default function Quiz() {
         })}
       </div>
 
-      <article className="cartao overflow-hidden">
-        <div className="relative">
-          <Foto lugar={`quiz:${q.id}`} ilustracao={q.ilustracao} titulo={q.termo} className="block aspect-[400/220] w-full" />
-          <span className="absolute bottom-3 left-3 rounded-full bg-papel/95 px-3 py-1 font-maquina text-sm text-tinta">
-            {idx + 1} de {QUIZ.length}
-          </span>
-        </div>
-        <div className="space-y-2.5 p-4">
-          <p className="font-maquina text-[12px] uppercase tracking-[0.15em] text-tijolo">{q.termo}</p>
-          <h2 className="font-titulo text-[1.3rem] font-bold leading-tight text-vagao">{q.pergunta}</h2>
+      <article className="space-y-4">
+        <Foto key={q.id} lugar={`quiz:${q.id}`} ilustracao={q.ilustracao} titulo={q.termo} giro={idx % 2 ? 0.8 : -0.9} />
+        <div className="cartao space-y-3 p-4">
+          <p className="flex items-baseline justify-between gap-2">
+            <span className="font-mao text-[18px] text-tijolo">{q.termo}</span>
+            <span className="font-maquina text-[13px] text-tinta-suave">
+              {idx + 1} de {QUIZ.length}
+            </span>
+          </p>
+          <h2 className="font-titulo text-[1.4rem] font-extrabold leading-tight text-vagao">{q.pergunta}</h2>
           <div className="grid gap-2">
             {q.opcoes.map((op, i) => {
               const certa = (escolha === q.correta || jaAcertou) && i === q.correta
@@ -111,9 +111,9 @@ export default function Quiz() {
                   key={i}
                   onClick={() => responder(i)}
                   disabled={errada}
-                  className={`flex min-h-[52px] items-center gap-2.5 rounded-xl border-2 px-3 py-2 text-left text-[15px] font-bold leading-snug transition ${
+                  className={`flex min-h-[56px] items-center gap-2.5 rounded-md border-2 px-3 py-2 text-left text-[16px] font-bold leading-snug transition ${
                     certa
-                      ? 'border-vagao bg-vagao text-papel'
+                      ? 'border-vagao bg-vagao text-papel-claro'
                       : errada
                         ? 'border-tijolo/40 bg-tijolo/5 text-tinta/50 line-through'
                         : 'border-papel-borda bg-white hover:border-vagao'
@@ -128,13 +128,13 @@ export default function Quiz() {
             })}
           </div>
           {errou.length > 0 && escolha !== q.correta && !jaAcertou && (
-            <p className="rounded-xl bg-latao-claro/30 px-3 py-2 text-[15px] font-bold" role="status">
-              Quase! Tente outra opção — não tem pressa. 🙂
+            <p className="rounded-md bg-latao-claro/30 px-3 py-2 text-[16px] font-bold" role="status">
+              Quase! Tente outra opção, não tem pressa.
             </p>
           )}
           {(escolha === q.correta || jaAcertou) && (
             <div className="space-y-3">
-              <p className="rounded-xl bg-vagao/10 px-3 py-2.5 text-[15px] leading-relaxed">
+              <p className="rounded-md bg-vagao/10 px-3 py-2.5 text-[16px] leading-relaxed">
                 <strong>Isso mesmo!</strong> {curiosidade}
               </p>
               <div className="grid grid-cols-2 gap-2">
@@ -152,7 +152,7 @@ export default function Quiz() {
 
       {acertadas === QUIZ.length && (
         <div className="cartao space-y-3 p-4 text-center">
-          <p className="font-titulo text-lg font-bold text-vagao">🏆 Você desbloqueou todas as engenhocas da Serra!</p>
+          <p className="font-titulo text-[1.25rem] font-extrabold text-vagao">Você desbloqueou todas as engenhocas da Serra!</p>
           <button
             className="btn-fantasma mx-auto"
             onClick={() => {
@@ -170,7 +170,7 @@ export default function Quiz() {
       <Sheet open={!!desbloqueio} onClose={() => setDesbloqueio(null)} title="Você desbloqueou essa memória!" icon={<Unlock className="text-latao-escuro" size={28} />}>
         {desbloqueio && (
           <div className="space-y-4">
-            <div className="anim-carimbo mx-auto w-fit rounded-xl border-[3px] border-tijolo px-4 py-2 font-maquina text-lg uppercase text-tijolo">{desbloqueio.termo}</div>
+            <div className="anim-carimbo mx-auto w-fit rounded-md border-[3px] border-double border-tijolo px-4 py-2 font-maquina text-lg uppercase text-tijolo">{desbloqueio.termo}</div>
             <p className="text-[16px] leading-relaxed">
               <strong>Alguém da sua família contava histórias sobre isso? Conta pra gente!</strong>
             </p>
@@ -178,7 +178,7 @@ export default function Quiz() {
             <label htmlFor="mem-quiz" className="sr-only">
               Sua memória
             </label>
-            <textarea id="mem-quiz" rows={4} className="campo resize-none" value={memoria} onChange={(e) => setMemoria(e.target.value)} placeholder="Ex.: Meu tio contava que…" maxLength={1200} />
+            <textarea id="mem-quiz" rows={4} className="campo-pautado resize-none" value={memoria} onChange={(e) => setMemoria(e.target.value)} placeholder="Ex.: Meu tio contava que…" maxLength={1200} />
             <div className="grid grid-cols-2 gap-2">
               <button className="btn-fantasma" onClick={() => setDesbloqueio(null)}>
                 Agora não

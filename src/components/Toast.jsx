@@ -13,7 +13,8 @@ export function ToastProvider({ children }) {
       {children}
       {msg && (
         <div className="pointer-events-none fixed inset-x-0 bottom-28 z-[2100] flex justify-center px-6" role="status" aria-live="polite">
-          <div key={msg.id} className="anim-subir rounded-2xl border-2 border-latao bg-vagao px-5 py-3 text-center text-base font-bold text-papel shadow-2xl">
+          <div key={msg.id} className="anim-subir recado max-w-sm text-center text-[17px] font-bold text-vagao shadow-foto">
+            <span className="fita" aria-hidden />
             {msg.text}
           </div>
         </div>

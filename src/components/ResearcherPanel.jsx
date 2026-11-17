@@ -158,9 +158,13 @@ export default function ResearcherPanel({ open, onClose }) {
           <ul className="space-y-1 text-sm">
             {creditosEmUso().map((a) => (
               <li key={a.slug}>
-                <a href={a.page} target="_blank" rel="noreferrer" className="text-vagao underline underline-offset-2">
-                  {a.alt.replace(/\.$/, '')}
-                </a>{' '}
+                {a.page ? (
+                  <a href={a.page} target="_blank" rel="noreferrer" className="text-vagao underline underline-offset-2">
+                    {a.alt.replace(/\.$/, '')}
+                  </a>
+                ) : (
+                  <span>{a.alt.replace(/\.$/, '')}</span>
+                )}{' '}
                 — {a.credit},{' '}
                 <a href={a.license_url} target="_blank" rel="noreferrer" className="underline underline-offset-2">
                   {a.license}

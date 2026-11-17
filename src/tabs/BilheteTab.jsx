@@ -1,9 +1,12 @@
 import { useMemo, useState } from 'react'
-import { ChevronLeft, Copy, Images, MapPin, Pencil, Puzzle, Share2 } from 'lucide-react'
+import { ChevronLeft, Copy, HardHat, House, Mountain, Pencil, Share2, Ticket as IconeBilhete, Users } from 'lucide-react'
 import { DECADAS, LIGACOES, OFICIOS } from '../data/content'
 import { useStore } from '../lib/store.jsx'
 import { computeStats } from '../lib/export'
 import { useToast } from '../components/Toast.jsx'
+import Foto from '../components/Foto.jsx'
+
+const ICONE_LIGACAO = { 'ex-ferroviario': HardHat, descendente: Users, morador: House, apaixonado: Mountain }
 
 const APP_URL = 'https://aikiesan.github.io/Memoria_paranapiacaba/'
 
@@ -29,7 +32,7 @@ function Ticket({ profile, stamps = [], live = false }) {
   const numero = profile.numero || '1867-____'
   return (
     <div className="relative mx-auto w-full max-w-[360px]" aria-label="Bilhete Histórico da São Paulo Railway">
-      <div className="relative overflow-hidden rounded-2xl border-[3px] border-tijolo bg-[#F3E7C6] shadow-cartao">
+      <div className="relative overflow-hidden rounded-md border-[3px] border-tijolo bg-[#F3E7C6] shadow-foto" style={{ backgroundImage: 'var(--grao)' }}>
         {/* furos laterais */}
         <div className="absolute -left-3 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full bg-papel ring-[3px] ring-tijolo" />
         <div className="absolute -right-3 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full bg-papel ring-[3px] ring-tijolo" />
@@ -61,15 +64,15 @@ function Ticket({ profile, stamps = [], live = false }) {
             </div>
             <div className="text-right">
               <p className="text-[0.7rem] uppercase text-tinta-suave">Ligação</p>
-              <p className="font-bold">{lig ? `${lig.emoji} ${lig.label}` : '—'}</p>
+              <p className="font-bold">{lig ? lig.label : '—'}</p>
             </div>
           </div>
           <p className="pt-1 text-center text-[0.7rem] uppercase tracking-wider text-tinta-suave">Via Serra do Mar · Sistema Funicular · Estação Alto da Serra</p>
         </div>
         {/* carimbos */}
-        <div className="pointer-events-none absolute right-4 top-14 flex flex-col items-end gap-1">
+        <div className="pointer-events-none absolute right-4 top-[6.4rem] flex flex-col items-end gap-1">
           {!live && (
-            <div className="anim-carimbo rounded-full border-[3px] border-vagao/70 px-3 py-1 font-maquina text-xs font-bold uppercase text-vagao/80">
+            <div className="anim-carimbo rounded-full border-[3px] border-double border-vagao/70 px-3 py-1 font-maquina text-xs font-bold uppercase text-vagao/80">
               Emitido
             </div>
           )}
@@ -103,33 +106,38 @@ function Onboarding({ initial, onDone }) {
 
   if (step === 0) {
     return (
-      <div className="space-y-4 px-4 py-5">
-        <div className="space-y-1.5 text-center">
-          <p className="font-maquina text-sm uppercase tracking-[0.2em] text-tijolo">Bem-vindo(a) a bordo</p>
-          <h1 className="font-titulo text-[1.45rem] font-bold leading-tight text-vagao sm:text-[1.75rem]">Qual a sua ligação com os trilhos de Paranapiacaba?</h1>
-          <p className="text-[15px] text-tinta-suave">Passo 1 de 2 · Toque na opção que mais combina com você.</p>
+      <div className="space-y-5 px-4 py-6">
+        <Foto lugar="capa:bilhete" titulo="O pátio ferroviário de Paranapiacaba" giro={-0.8} />
+        <div className="space-y-2 px-1">
+          <p className="font-mao text-[18px] text-tijolo">Bem-vindo(a) a bordo!</p>
+          <h1 className="font-titulo text-[1.7rem] font-extrabold leading-[1.12] text-vagao sm:text-[2rem]">Qual a sua ligação com os trilhos de Paranapiacaba?</h1>
+          <p className="text-[16px] text-tinta-suave">Passo 1 de 2. Toque na opção que mais combina com você.</p>
         </div>
         <div className="grid gap-2.5">
-          {LIGACOES.map((l) => (
+          {LIGACOES.map((l) => {
+            const Icone = ICONE_LIGACAO[l.key] || House
+            const on = form.ligacao === l.key
+            return (
             <button
               key={l.key}
               onClick={() => {
                 set('ligacao', l.key)
                 setStep(1)
               }}
-              className={`flex min-h-[64px] items-center gap-3 rounded-xl border-2 px-3.5 py-2.5 text-left transition active:scale-[0.99] ${
-                form.ligacao === l.key ? 'border-vagao bg-vagao text-papel' : 'border-papel-borda bg-white hover:border-vagao'
+              className={`flex min-h-[68px] items-center gap-3.5 rounded-md border-2 px-3.5 py-2.5 text-left transition active:translate-y-px ${
+                on ? 'border-vagao bg-vagao text-papel-claro' : 'border-papel-borda bg-papel-claro shadow-cartao hover:border-vagao'
               }`}
             >
-              <span className="text-[1.75rem]" aria-hidden>
-                {l.emoji}
+              <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-full border-2 border-dashed ${on ? 'border-papel-claro/60' : 'border-tijolo text-tijolo'}`} aria-hidden>
+                <Icone size={22} />
               </span>
               <span>
-                <span className="block text-[16px] font-bold leading-tight">{l.label}</span>
-                <span className={`block text-[13px] ${form.ligacao === l.key ? 'text-papel/80' : 'text-tinta-suave'}`}>{l.descricao}</span>
+                <span className="block text-[17px] font-bold leading-tight">{l.label}</span>
+                <span className={`block text-[14px] ${on ? 'text-papel-claro/80' : 'text-tinta-suave'}`}>{l.descricao}</span>
               </span>
             </button>
-          ))}
+            )
+          })}
         </div>
       </div>
     )
@@ -142,7 +150,7 @@ function Onboarding({ initial, onDone }) {
       </button>
       <div>
         <h1 className="titulo-secao">Vamos montar seu bilhete</h1>
-        <p className="mt-0.5 text-[15px] text-tinta-suave">Passo 2 de 2 · O bilhete se forma enquanto você preenche.</p>
+        <p className="mt-1 text-[16px] text-tinta-suave">Passo 2 de 2. O bilhete se forma enquanto você preenche.</p>
       </div>
 
       <Ticket profile={{ ...form, oficio: oficioFinal, numero: initial?.numero }} live />
@@ -191,7 +199,7 @@ function Onboarding({ initial, onDone }) {
           })
         }
       >
-        🎫 Emitir meu bilhete
+        <IconeBilhete size={22} /> Emitir meu bilhete
       </button>
       {!form.nome.trim() && <p className="-mt-3 text-center text-base text-tinta-suave">Escreva um nome para emitir o bilhete.</p>}
     </div>
@@ -212,7 +220,7 @@ export default function BilheteTab({ goTo }) {
         onDone={(data) => {
           actions.saveProfile(data)
           setEditing(false)
-          toast('Bilhete emitido! Boa viagem pela memória 🚂')
+          toast('Bilhete emitido! Boa viagem pela memória.')
         }}
       />
     )
@@ -252,7 +260,7 @@ export default function BilheteTab({ goTo }) {
   return (
     <div className="space-y-5 px-4 py-5">
       <div className="text-center">
-        <p className="font-maquina text-sm uppercase tracking-[0.2em] text-tijolo">Seu bilhete histórico</p>
+        <p className="font-mao text-[18px] text-tijolo">Seu bilhete histórico</p>
         <h1 className="titulo-secao mt-1">Que bom ter você a bordo, {/^fam[íi]lia\s/i.test(p.nome) ? p.nome : p.nome.split(' ')[0]}!</h1>
       </div>
 
@@ -276,26 +284,33 @@ export default function BilheteTab({ goTo }) {
         </div>
       </div>
 
-      <section className="cartao space-y-2.5 p-4">
-        <h2 className="font-titulo text-lg font-bold text-vagao">Próximas estações da sua viagem</h2>
-        <p className="text-[14px] text-tinta-suave">Cada estação visitada ganha um carimbo no seu bilhete.</p>
-        <div className="grid gap-2">
+      <section className="cartao space-y-3 p-4" aria-labelledby="proximas">
+        <h2 id="proximas" className="font-titulo text-[1.3rem] font-extrabold text-vagao">
+          Próximas estações da sua viagem
+        </h2>
+        <p className="text-[15px] text-tinta-suave">Cada estação visitada ganha um carimbo no seu bilhete.</p>
+        {/* linha férrea com as estações */}
+        <ol className="relative ml-4 border-l-[3px] border-dashed border-vagao/40">
           {[
-            { tab: 'mural', icon: Images, t: 'Mural da Vila', d: 'Reaja às fotos e conte uma lembrança' },
-            { tab: 'jogos', icon: Puzzle, t: 'Jogos da Ferrovia', d: 'Quiz das engenhocas e caça-palavras' },
-            { tab: 'mapa', icon: MapPin, t: 'Mapa de Sobrenomes', d: 'Crave a memória da sua família na vila' },
-          ].map(({ tab, icon: Icon, t, d }) => (
-            <button key={tab} onClick={() => goTo(tab)} className="flex min-h-[56px] items-center gap-3 rounded-xl border-2 border-papel-borda bg-white px-3 py-2 text-left hover:border-vagao">
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-vagao text-latao">
-                <Icon size={20} />
-              </span>
-              <span>
-                <span className="block text-[15px] font-bold leading-tight">{t}</span>
-                <span className="block text-[13px] text-tinta-suave">{d}</span>
-              </span>
-            </button>
+            { tab: 'mural', t: 'Mural da Vila', d: 'Folheie as fotos e conte uma lembrança', ok: stamps[0].ok },
+            { tab: 'jogos', t: 'Jogos da Ferrovia', d: 'Quiz das engenhocas e caça-palavras', ok: stamps[1].ok || stamps[2].ok },
+            { tab: 'mapa', t: 'Mapa de Sobrenomes', d: 'Marque no mapa onde a sua família viveu', ok: stamps[3].ok },
+          ].map(({ tab, t, d, ok }) => (
+            <li key={tab} className="relative pb-2 pl-6 last:pb-0">
+              <span
+                className={`absolute -left-[11px] top-[18px] h-5 w-5 rounded-full border-[3px] ${ok ? 'border-tijolo bg-tijolo' : 'border-vagao bg-papel-claro'}`}
+                aria-hidden
+              />
+              <button onClick={() => goTo(tab)} className="flex min-h-[56px] w-full items-center justify-between gap-2 rounded-md px-2 py-1.5 text-left hover:bg-papel-escuro">
+                <span>
+                  <span className="block text-[17px] font-bold leading-tight">{t}</span>
+                  <span className="block text-[14px] text-tinta-suave">{d}</span>
+                </span>
+                <span className={`shrink-0 font-mao text-[15px] ${ok ? 'text-tijolo' : 'text-vagao'}`}>{ok ? 'carimbado' : 'ir agora'}</span>
+              </button>
+            </li>
           ))}
-        </div>
+        </ol>
       </section>
 
       <p className="text-center text-sm text-tinta-suave">
