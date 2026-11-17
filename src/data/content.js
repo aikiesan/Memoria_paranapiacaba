@@ -76,7 +76,7 @@ export const VOCABULARIO = [
     titulo: 'Cabineiro',
     definicao: 'Profissional que trabalhava na cabine ou no posto de controle, acompanhando sinais, comandos e movimentos dos trens.',
     curiosidade:
-      'A operação dependia de comunicação rigorosa entre pátio, estação, patamares e oficinas. O termo e suas tarefas podem variar conforme a época e a companhia — vale confirmar com ex-ferroviários.',
+      'A operação dependia de comunicação rigorosa entre pátio, estação, patamares e oficinas. O termo e suas tarefas podem variar conforme a época e a companhia — vale confirmar com ferroviários aposentados.',
     gatilho: 'Você conheceu algum cabineiro? Como ele avisava que o trem podia partir ou parar?',
     fontes: [1, 5],
   },
@@ -209,7 +209,7 @@ export const RELATOS = [
     ficticio: true,
     personagem: 'João Oliveira',
     idade: 59,
-    relacao_com_a_vila: 'Ex-ferroviário',
+    relacao_com_a_vila: 'Ferroviário aposentado',
     decada_referida: 'Anos 80',
     cargo_ou_oficio: 'Ajudante de manutenção',
     texto:
@@ -563,7 +563,7 @@ export const SENTIMENTOS = [
 /* 6. Bilhete / onboarding                                              */
 /* ------------------------------------------------------------------ */
 export const LIGACOES = [
-  { key: 'ex-ferroviario', emoji: '👷', label: 'Ex-ferroviário(a)', descricao: 'Trabalhei na ferrovia' },
+  { key: 'ex-ferroviario', emoji: '👷', label: 'Ferroviário(a) aposentado(a)', descricao: 'Trabalhei na ferrovia' },
   { key: 'descendente', emoji: '👨‍👧', label: 'Filho(a) ou neto(a) de ferroviário', descricao: 'A ferrovia está na minha família' },
   { key: 'morador', emoji: '🏡', label: 'Morador(a) da vila', descricao: 'Moro ou morei em Paranapiacaba' },
   { key: 'apaixonado', emoji: '⛰️', label: 'Apaixonado(a) pela Serra', descricao: 'Visito e guardo carinho pela vila' },

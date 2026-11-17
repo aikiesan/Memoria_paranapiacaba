@@ -1,6 +1,6 @@
 # Estação de Memória — Paranapiacaba
 
-Protótipo funcional de um WebApp **mobile-first** para conversar com moradores, ex-ferroviários e seus familiares sobre a vida na
+Protótipo funcional de um WebApp **mobile-first** para conversar com moradores, ferroviários aposentados e seus familiares sobre a vida na
 Vila Ferroviária de Paranapiacaba, resgatando a memória da São Paulo Railway (SPR) enquanto **coleta relatos, reações e lembranças
 geolocalizadas**.
 
@@ -66,7 +66,7 @@ Definições e curiosidades vêm do documento-base do projeto, apoiado em:
 5. [ANPUH — Oralidades em foco: estudos de uma vila ferroviária](https://www.snh2015.anpuh.org/resources/anais/39/1428342827_ARQUIVO_Oralidadesemfoco.pdf)
 6. [IPHAN — Vilas ferroviárias e o mundo do trabalho](https://www.gov.br/iphan/pt-br/patrimonio-cultural/patrimonio-material/patrimonio-ferroviario/tematica-06-patrimonio-ferroviario-vilas-ferroviarias-e-o-mundo-de-trabalho-recuperacao-e-conservacao)
 
-Pontos a validar com ex-ferroviários antes de publicar: a nomenclatura exata de **cabineiro**; o termo “Fogo Paulista”
+Pontos a validar com ferroviários aposentados antes de publicar: a nomenclatura exata de **cabineiro**; o termo “Fogo Paulista”
 (propositalmente **não** usado no app); as posições dos pins de exemplo (aproximadas).
 
 ### Fotografias
