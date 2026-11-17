@@ -1,7 +1,7 @@
 # Prompt — Coleta de imagens e figuras para a “Estação de Memória — Paranapiacaba”
 
 > Copie o bloco abaixo e entregue a quem vai fazer a pesquisa (bolsista, equipe do acervo ou um assistente de IA com acesso à web).
-> Os nomes de arquivo já correspondem aos identificadores usados no código, então a troca das ilustrações provisórias será direta.
+> Os nomes de arquivo já correspondem aos identificadores usados no código, então a inclusão no app será direta.
 
 ---
 
@@ -12,7 +12,7 @@ Você vai reunir imagens para o protótipo **Estação de Memória — Paranapia
 O app conversa com **idosos, ferroviários aposentados e seus familiares**: as imagens precisam provocar **reconhecimento e memória
 afetiva** (“eu lembro disso!”), e não só ilustrar.
 
-Hoje o app usa ilustrações vetoriais provisórias. Queremos substituí-las por **fotografias históricas (de preferência entre
+Hoje o app mostra só fotografias; os lugares ainda sem foto aparecem apenas com texto. Queremos completá-los com **fotografias históricas (de preferência entre
 1900 e 1990)** e, quando não houver, por **fotografias atuais de boa qualidade** do patrimônio preservado.
 
 ## Regras obrigatórias (leia antes de começar)

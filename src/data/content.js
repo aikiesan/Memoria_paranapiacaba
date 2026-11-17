@@ -245,7 +245,6 @@ export const POSTS = [
     id: 'relogio',
     titulo: 'Relógio da Estação — o “Big Ben da Serra”',
     local: 'Pátio Ferroviário',
-    ilustracao: 'relogio',
     legenda:
       'Quando o relógio batia, a vila inteira parecia se alinhar: trem, turno, escola e café tinham hora certa.',
     curiosidade: VOCABULARIO[11].curiosidade,
@@ -260,7 +259,6 @@ export const POSTS = [
     id: 'locobreque',
     titulo: 'Locobreque — a máquina que segurava a Serra',
     local: 'Pátio Ferroviário',
-    ilustracao: 'locobreque',
     legenda:
       'Na subida, empurrava. Na descida, segurava. O locobreque não era um trem comum: era a força que dava confiança para vencer a Serra.',
     curiosidade: VOCABULARIO[0].curiosidade,
@@ -274,7 +272,6 @@ export const POSTS = [
     id: 'casas',
     titulo: 'Casas de madeira — tipologias A, B, C e D',
     local: 'Vila Martin Smith',
-    ilustracao: 'casas',
     legenda:
       'As casas pareciam repetir a mesma rua, mas cada uma guardava uma família, uma receita, uma briga e muitas histórias de varanda.',
     curiosidade:
@@ -290,7 +287,6 @@ export const POSTS = [
     id: 'lyra',
     titulo: 'Clube União Lyra-Serrano',
     local: 'Parte Baixa',
-    ilustracao: 'lyra',
     legenda:
       'Depois do apito e da jornada, era aqui que a vila se encontrava: baile, música, filme e conversa até a neblina apertar.',
     curiosidade: 'Clubes, igreja e festas ajudavam a construir pertencimento para além da jornada ferroviária.',
@@ -305,7 +301,6 @@ export const POSTS = [
     id: 'passarela',
     titulo: 'Passarela Metálica',
     local: 'Ligação entre Parte Alta e Parte Baixa',
-    ilustracao: 'passarela',
     legenda:
       'A passarela era atalho, mirante e caminho de todos os dias; lá de cima, os trilhos pareciam desenhar a vida da vila.',
     curiosidade: 'A passarela liga as duas partes da vila por cima do pátio ferroviário.',
@@ -319,7 +314,6 @@ export const POSTS = [
     id: 'funicular',
     titulo: 'Museu do Funicular, oficinas e forjaria',
     local: 'Pátio Ferroviário',
-    ilustracao: 'funicular',
     legenda:
       'Ferro, madeira, carvão e graxa: nas oficinas, o patrimônio não era só visto — era consertado, fabricado e colocado para trabalhar.',
     curiosidade: VOCABULARIO[1].curiosidade,
@@ -335,7 +329,6 @@ export const POSTS = [
     id: 'castelinho',
     titulo: 'Castelinho — a casa do engenheiro-chefe',
     local: 'Parte Alta',
-    ilustracao: 'castelinho',
     legenda:
       'Lá do alto, a vila, o pátio e a serra cabiam no mesmo olhar. Era a casa do chefe, mas virou cenário das lembranças de todo mundo.',
     curiosidade: VOCABULARIO[10].curiosidade,
@@ -349,7 +342,6 @@ export const POSTS = [
     id: 'mercado',
     titulo: 'Antigo Mercado',
     local: 'Vila Martin Smith / Parte Baixa',
-    ilustracao: 'mercado',
     legenda:
       'Mercado era lugar de comprar o necessário, saber das novidades e encontrar alguém conhecido antes de voltar para casa.',
     curiosidade: 'O comércio da vila também era espaço de notícia, de conversa e de encontro da vizinhança.',
@@ -363,7 +355,6 @@ export const POSTS = [
     id: 'escola',
     titulo: 'Grupo Escolar Senador Lacerda Franco',
     local: 'Parte Baixa',
-    ilustracao: 'escola',
     legenda:
       'Antes do trabalho e depois do apito, havia caderno, merenda, chamada e o caminho de volta pelas ruas molhadas.',
     curiosidade: 'A escola também faz parte da memória operária: caderno, merenda e chamada dividiam o dia com o apito e o relógio.',
@@ -423,7 +414,6 @@ export const QUIZ = [
   {
     id: 'q-locobreque',
     termo: 'Locobreque',
-    ilustracao: 'locobreque',
     pergunta: 'Para que servia o Locobreque?',
     opcoes: [
       'Levar as famílias até o Castelinho',
@@ -437,8 +427,7 @@ export const QUIZ = [
   {
     id: 'q-cabine',
     termo: 'Cabine de controle',
-    ilustracao: 'cabine',
-    pergunta: 'O que fazia o cabineiro dentro desta cabine?',
+    pergunta: 'O que fazia o cabineiro dentro da cabine de sinalização?',
     opcoes: [
       'Vendia bilhetes aos passageiros',
       'Cozinhava para as equipes do pátio',
@@ -451,7 +440,6 @@ export const QUIZ = [
   {
     id: 'q-apito',
     termo: 'Apito da oficina',
-    ilustracao: 'apito',
     pergunta: 'Para que servia o apito da oficina?',
     opcoes: [
       'Marcar a troca de turno, o almoço e a saída dos trabalhadores',
@@ -468,7 +456,6 @@ export const QUIZ = [
   {
     id: 'q-viradouro',
     termo: 'Viradouro',
-    ilustracao: 'viradouro',
     pergunta: 'Para que servia o viradouro?',
     opcoes: [
       'Para lavar as locomotivas',
@@ -482,7 +469,6 @@ export const QUIZ = [
   {
     id: 'q-relogio',
     termo: 'Relógio da Estação',
-    ilustracao: 'relogio',
     pergunta: 'Qual era o papel do Relógio da Estação na vila?',
     opcoes: [
       'Só enfeitar a praça',
@@ -496,7 +482,6 @@ export const QUIZ = [
   {
     id: 'q-maquinas',
     termo: 'Casa de máquinas fixa',
-    ilustracao: 'casaMaquinas',
     pergunta: 'O que funcionava dentro da casa de máquinas fixa?',
     opcoes: [
       'Uma padaria para os ferroviários',
@@ -510,7 +495,6 @@ export const QUIZ = [
   {
     id: 'q-foguista',
     termo: 'Foguista',
-    ilustracao: 'foguista',
     pergunta: 'Qual era o trabalho do foguista?',
     opcoes: [
       'Alimentar a fornalha com carvão ou lenha para fazer o vapor',
@@ -524,7 +508,6 @@ export const QUIZ = [
   {
     id: 'q-patamar',
     termo: 'Patamar',
-    ilustracao: 'patamar',
     pergunta: 'O que era um patamar na ferrovia da Serra?',
     opcoes: [
       'Um tipo de vagão de luxo',

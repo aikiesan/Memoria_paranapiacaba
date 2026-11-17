@@ -20,7 +20,7 @@ Faz parte do projeto **FAPESP / PUC-Campinas** de apoio à candidatura de Parana
 | --- | --- | --- |
 | 🪪 **Meu Bilhete** | Acolhida: “Qual a sua ligação com os trilhos?”, nome/sobrenome, década e ofício lembrado. Gera na hora um *Bilhete Histórico da SPR* com botão **Compartilhar no WhatsApp**. O bilhete ganha carimbos conforme a pessoa participa das outras abas. | Perfil do participante (ligação, década, ofício) |
 | 📸 **Mural da Vila** | Feed com 9 locais de memória (Relógio, Locobreque, Casas de madeira, Lyra-Serrano, Passarela, Funicular, Castelinho, Mercado, Escola). Cada card tem 3 reações afetivas com contador, comentários, frases prontas para começar e **gravação de áudio** (MediaRecorder; sem microfone, faz uma gravação simulada). Entre os cards, perguntas sobre *sons e cheiros da Serra*. | Reações, comentários escritos, áudios, memórias sensoriais |
-| ⚙️ **Jogos da Ferrovia** | **Quiz “Engenhocas e Ofícios da Serra”** (8 perguntas ilustradas). Ao acertar: *“Você desbloqueou essa memória! Alguém da sua família contava histórias sobre isso? Conta pra gente!”*. **Caça-palavras 10×10** (tocar primeira e última letra, ou arrastar): cada palavra encontrada mostra uma curiosidade e pergunta o sentimento da pessoa. | Acertos, memórias do quiz, palavras e sentimentos |
+| ⚙️ **Jogos da Ferrovia** | **Quiz “Engenhocas e Ofícios da Serra”** (8 perguntas, com foto quando houver). Ao acertar: *“Você desbloqueou essa memória! Alguém da sua família contava histórias sobre isso? Conta pra gente!”*. **Caça-palavras 10×10** (tocar primeira e última letra, ou arrastar): cada palavra encontrada mostra uma curiosidade e pergunta o sentimento da pessoa. | Acertos, memórias do quiz, palavras e sentimentos |
 | 📍 **Mapa de Sobrenomes** | Mapa Leaflet centrado na vila (`-23.7780, -46.2995`, zoom 17) com pins de famílias ferroviárias. Botão **“+ Cravar Memória da Minha Família no Mapa”**: toca-se no mapa, preenche sobrenome, parente, ofício e uma lembrança, e o pin aparece na hora. | Pins geolocalizados (lat/lng) com relato |
 | 📊 **Painel do Pesquisador** (topo) | Estatísticas em tempo real, reações por local, sentimentos, download **.json** e **.csv** e botão **Resetar dados de demonstração**. | — |
 
@@ -86,8 +86,8 @@ O script corrige a orientação, recorta, desfoca rostos indicados, reduz para 1
 **Fotos de licença aberta.** As demais fotos ficam em [`src/assets/imagens/`](src/assets/imagens/) e os créditos em `creditos.json`, na mesma pasta.
 Para incluir uma foto nova, **basta colocar o arquivo `.webp` nessa pasta com o nome indicado no `creditos.json`**
 (dá para fazer pelo próprio GitHub: *Add file → Upload files*). No próximo deploy a foto aparece sozinha, com o
-crédito e a licença sob a imagem e na lista do Painel do Pesquisador. Enquanto o arquivo não existir, o app usa a
-ilustração vetorial provisória (`src/components/Illustration.jsx`).
+crédito e a licença sob a imagem e na lista do Painel do Pesquisador. O app não usa desenhos: enquanto não houver
+foto, o lugar aparece só com o texto (no Mural, com um convite para quem tiver uma foto antiga).
 
 Onde cada foto aparece (e quais itens do acervo estão em revisão) é definido em [`src/data/imagens.js`](src/data/imagens.js).
 O roteiro de coleta está em [`docs/PROMPT_COLETA_IMAGENS.md`](docs/PROMPT_COLETA_IMAGENS.md).
@@ -126,7 +126,7 @@ src/
 ├── data/content.js             # todo o conteúdo (vocabulário, locais, quiz, palavras, relatos, pins)
 ├── lib/store.jsx               # estado global + persistência em localStorage
 ├── lib/export.js               # estatísticas e exportação JSON/CSV
-├── components/                 # Foto (cópia de álbum), Illustration, AudioRecorder, Quiz, WordSearch, ResearcherPanel, Sheet, Toast
+├── components/                 # Foto (cópia de álbum), AudioRecorder, Quiz, WordSearch, ResearcherPanel, Sheet, Toast
 └── tabs/                       # BilheteTab, MuralTab, JogosTab, MapaTab
 scripts/processar_fotos.py      # converte as fotos do acervo para WebP sem metadados
 ```

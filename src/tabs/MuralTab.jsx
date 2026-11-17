@@ -76,7 +76,13 @@ function Post({ post, n }) {
         <span>{post.local}</span>
       </p>
 
-      <Foto lugar={`post:${post.id}`} ilustracao={post.ilustracao} titulo={post.titulo} giro={n % 2 ? -1.1 : 0.9} />
+      {fotoDe(`post:${post.id}`) ? (
+        <Foto lugar={`post:${post.id}`} giro={n % 2 ? -1.1 : 0.9} />
+      ) : (
+        <p className="mx-1 rounded-md border-2 border-dashed border-kraft px-4 py-3 font-mao text-[17px] leading-snug text-tinta-suave">
+          Ainda não temos foto deste lugar. Você guarda alguma em casa? Mostre para a equipe do projeto.
+        </p>
+      )}
 
       <div className="px-1">
         <h2 id={`t-${post.id}`} className="font-titulo text-[1.45rem] font-extrabold leading-tight text-vagao">
@@ -181,7 +187,7 @@ function SentidoCard({ sentido }) {
         <p className="font-mao text-[17px] text-tijolo">Sons e cheiros da Serra</p>
         {temFoto && (
           <div className="overflow-hidden rounded-sm shadow-foto">
-            <Foto lugar={`sentido:${sentido.id}`} titulo={sentido.titulo} moldura={false} proporcao="aspect-[2/1]" />
+            <Foto lugar={`sentido:${sentido.id}`} moldura={false} proporcao="aspect-[2/1]" />
           </div>
         )}
         <h2 id={`s-t-${sentido.id}`} className="font-titulo text-[1.35rem] font-extrabold leading-tight text-vagao">
@@ -261,7 +267,7 @@ export default function MuralTab() {
       {feed}
 
       <p className="pb-4 text-center font-mao text-[16px] text-tinta-suave">
-        Fotos feitas pela equipe do projeto com moradores da vila. Onde ainda há desenho, procuramos uma foto: você tem alguma?
+        Fotos feitas pela equipe do projeto com moradores da vila. Tem uma foto antiga da vila? Ela pode entrar neste álbum.
       </p>
 
       <Sheet open={!!relato} onClose={() => setRelato(null)} title={relato?.personagem || ''}>
