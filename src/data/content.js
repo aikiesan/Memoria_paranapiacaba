@@ -643,19 +643,6 @@ export const PINS_SEED = [
 ].map((p) => ({ ...p, origem: 'seed', ficticio: true, ts: '2026-10-01T12:00:00-03:00' }))
 
 /* ------------------------------------------------------------------ */
-/* 8. Apresentação da ferramenta (tela para projetar + QR Code)         */
+/* 8. Endereço público (o mesmo do QR Code impresso)                    */
 /* ------------------------------------------------------------------ */
 export const APP_URL = 'https://aikiesan.github.io/Memoria_paranapiacaba/'
-
-// Edite aqui o nome e a descrição de quem apresenta.
-export const APRESENTACAO = {
-  apresentador: 'Lucas',
-  papel: 'Pesquisador · Projeto FAPESP / PUC-Campinas',
-  convite: 'Aponte a câmera do celular para o código e entre no trem.',
-  ferramenta: [
-    { titulo: 'Meu Bilhete', texto: 'Conte qual é a sua ligação com os trilhos e ganhe um bilhete da SPR para mandar no WhatsApp.' },
-    { titulo: 'Mural da Vila', texto: 'Veja fotos dos lugares da vila, reaja, escreva ou grave uma lembrança.' },
-    { titulo: 'Jogos da Ferrovia', texto: 'Quiz de engenhocas e ofícios da Serra e caça-palavras com curiosidades.' },
-    { titulo: 'Mapa de Sobrenomes', texto: 'Crave no mapa a casa ou o lugar da sua família ferroviária.' },
-  ],
-}
