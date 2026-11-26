@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { ChartColumn, Gamepad2, Images, MapPin, Ticket, Type } from 'lucide-react'
+import { ChartColumn, Gamepad2, Images, MapPin, QrCode, Ticket, Type } from 'lucide-react'
 import { useStore } from './lib/store.jsx'
 import { ToastProvider } from './components/Toast.jsx'
 import ResearcherPanel from './components/ResearcherPanel.jsx'
+import Apresentacao from './components/Apresentacao.jsx'
 import BilheteTab from './tabs/BilheteTab.jsx'
 import MuralTab from './tabs/MuralTab.jsx'
 import JogosTab from './tabs/JogosTab.jsx'
@@ -29,6 +30,17 @@ export default function App() {
   const { state, actions, storageWarning } = useStore()
   const [tab, setTab] = useState(readTab)
   const [panelOpen, setPanelOpen] = useState(false)
+  // Tela de apresentação + QR Code: abre também pelo link .../#apresentacao
+  const [apresOpen, setApresOpen] = useState(() => window.location.hash === '#apresentacao')
+  useEffect(() => {
+    const onHash = () => setApresOpen(window.location.hash === '#apresentacao')
+    window.addEventListener('hashchange', onHash)
+    return () => window.removeEventListener('hashchange', onHash)
+  }, [])
+  const fecharApres = () => {
+    setApresOpen(false)
+    if (window.location.hash === '#apresentacao') history.replaceState(null, '', window.location.pathname + window.location.search)
+  }
 
   useEffect(() => {
     try {
@@ -53,9 +65,17 @@ export default function App() {
               <text x="20" y="24.5" textAnchor="middle" fontFamily="Alegreya, Georgia, serif" fontWeight="800" fontSize="12.5" fill="#8B261D">SPR</text>
             </svg>
             <div className="min-w-0 flex-1">
-              <p className="truncate font-titulo text-[1.2rem] font-extrabold leading-none text-vagao sm:text-[1.45rem]">Estação de Memória</p>
+              <p className="truncate font-titulo text-[1.2rem] font-extrabold leading-none text-vagao sm:text-[1.45rem]">Trilhos da Memória</p>
               <p className="mt-0.5 truncate font-mao text-[15px] leading-tight text-tijolo sm:text-[16px]">Paranapiacaba, Serra do Mar</p>
             </div>
+            <button
+              onClick={() => setApresOpen(true)}
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-md border-2 border-papel-borda bg-papel-claro text-vagao hover:border-vagao"
+              aria-label="Apresentação e QR Code para compartilhar o app"
+              title="Apresentação e QR Code"
+            >
+              <QrCode size={20} />
+            </button>
             <button
               onClick={actions.toggleLargeText}
               className={`grid h-11 w-11 shrink-0 place-items-center rounded-md border-2 ${state.prefs.largeText ? 'border-vagao bg-vagao text-papel-claro' : 'border-papel-borda bg-papel-claro text-vagao'}`}
@@ -115,6 +135,7 @@ export default function App() {
         </nav>
       </div>
       <ResearcherPanel open={panelOpen} onClose={() => setPanelOpen(false)} />
+      <Apresentacao open={apresOpen} onClose={fecharApres} />
     </ToastProvider>
   )
 }

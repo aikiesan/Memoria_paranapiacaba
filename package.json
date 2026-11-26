@@ -1,11 +1,13 @@
 {
-  "name": "memoria-paranapiacaba",
+  "name": "trilhos-da-memoria-paranapiacaba",
   "private": true,
   "version": "0.1.0",
-  "description": "Estação de Memória — Paranapiacaba: protótipo mobile-first de coleta de memórias ferroviárias (FAPESP / PUC-Campinas).",
+  "description": "Trilhos da Memória — Paranapiacaba: protótipo mobile-first de coleta de memórias ferroviárias (FAPESP / PUC-Campinas).",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "qrcode": "node scripts/gerar_qrcode.mjs",
+    "prebuild": "node scripts/gerar_qrcode.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -20,6 +22,7 @@
     "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.6.2",
     "postcss": "^8.5.32",
+    "qrcode": "^1.5.4",
     "tailwindcss": "^3.4.19",
     "vite": "^5.4.21"
   }

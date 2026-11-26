@@ -280,7 +280,7 @@ export default function MuralTab() {
             <blockquote className="border-l-4 border-kraft pl-3 font-titulo text-[1.2rem] italic leading-relaxed text-tinta">“{relato.texto}”</blockquote>
             <p className="rounded-xl bg-papel-escuro p-3 text-sm text-tinta-suave">
               Este relato foi criado apenas para demonstrar o protótipo. Ele será substituído por depoimentos reais, colhidos com autorização em
-              entrevistas com moradores e ferroviários aposentados.
+              entrevistas com moradores e ferroviários.
             </p>
           </div>
         )}

@@ -1,14 +1,14 @@
 import { useMemo, useState } from 'react'
 import { ChevronLeft, Copy, HardHat, House, Mountain, Pencil, Share2, Ticket as IconeBilhete, Users } from 'lucide-react'
-import { DECADAS, LIGACOES, OFICIOS } from '../data/content'
+import { APP_URL, DECADAS, LIGACOES, OFICIOS } from '../data/content'
 import { useStore } from '../lib/store.jsx'
 import { computeStats } from '../lib/export'
 import { useToast } from '../components/Toast.jsx'
 import Foto from '../components/Foto.jsx'
 
-const ICONE_LIGACAO = { 'ex-ferroviario': HardHat, descendente: Users, morador: House, apaixonado: Mountain }
+const ICONE_LIGACAO = { ferroviario: HardHat, descendente: Users, morador: House, apaixonado: Mountain }
 
-const APP_URL = 'https://aikiesan.github.io/Memoria_paranapiacaba/'
+// endereço público definido em data/content.js
 
 export function shareText(p) {
   const lig = LIGACOES.find((l) => l.key === p.ligacao)
@@ -20,7 +20,7 @@ export function shareText(p) {
     p.oficio ? `Ofício lembrado: ${p.oficio}` : null,
     'Destino: Paranapiacaba, Serra do Mar',
     '',
-    'Conte você também a sua história na Estação de Memória:',
+    'Conte você também a sua história na Trilhos da Memória:',
     APP_URL,
   ]
     .filter((x) => x !== null)
