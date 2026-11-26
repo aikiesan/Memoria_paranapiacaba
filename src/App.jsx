@@ -58,19 +58,19 @@ export default function App() {
       {/* Site responsivo: tela cheia em qualquer aparelho, rolagem natural da página */}
       <div className={`flex flex-col ${isMapa ? 'h-[100dvh]' : 'min-h-[100dvh]'}`}>
         <header className="papel-textura sticky top-0 z-[1100] border-b border-papel-borda pt-[env(safe-area-inset-top)] shadow-[0_6px_14px_-12px_rgba(42,36,32,0.6)]">
-          <div className="mx-auto flex w-full max-w-3xl items-center gap-2.5 px-3 py-2 sm:px-4 sm:py-2.5">
-            <svg viewBox="0 0 40 40" className="hidden h-10 w-10 shrink-0 min-[380px]:block" aria-hidden>
+          <div className="mx-auto flex w-full max-w-3xl items-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5">
+            <svg viewBox="0 0 40 40" className="hidden h-10 w-10 shrink-0 min-[440px]:block" aria-hidden>
               <circle cx="20" cy="20" r="18" fill="none" stroke="#8B261D" strokeWidth="2" />
               <circle cx="20" cy="20" r="14.5" fill="none" stroke="#8B261D" strokeWidth="1" strokeDasharray="2 2" />
               <text x="20" y="24.5" textAnchor="middle" fontFamily="Alegreya, Georgia, serif" fontWeight="800" fontSize="12.5" fill="#8B261D">SPR</text>
             </svg>
             <div className="min-w-0 flex-1">
-              <p className="truncate font-titulo text-[1.2rem] font-extrabold leading-none text-vagao sm:text-[1.45rem]">Trilhos da Memória</p>
-              <p className="mt-0.5 truncate font-mao text-[15px] leading-tight text-tijolo sm:text-[16px]">Paranapiacaba, Serra do Mar</p>
+              <p className="truncate font-titulo text-[1.05rem] font-extrabold leading-none text-vagao min-[360px]:text-[1.2rem] sm:text-[1.45rem]">Trilhos da Memória</p>
+              <p className="mt-0.5 truncate font-mao text-[15px] leading-tight text-tijolo sm:text-[16px]">Paranapiacaba<span className="hidden min-[420px]:inline">, Serra do Mar</span></p>
             </div>
             <button
               onClick={() => setApresOpen(true)}
-              className="grid h-11 w-11 shrink-0 place-items-center rounded-md border-2 border-papel-borda bg-papel-claro text-vagao hover:border-vagao"
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-md border-2 border-papel-borda bg-papel-claro text-vagao hover:border-vagao"
               aria-label="Apresentação e QR Code para compartilhar o app"
               title="Apresentação e QR Code"
             >
@@ -78,7 +78,7 @@ export default function App() {
             </button>
             <button
               onClick={actions.toggleLargeText}
-              className={`grid h-11 w-11 shrink-0 place-items-center rounded-md border-2 ${state.prefs.largeText ? 'border-vagao bg-vagao text-papel-claro' : 'border-papel-borda bg-papel-claro text-vagao'}`}
+              className={`grid h-10 w-10 shrink-0 place-items-center rounded-md border-2 ${state.prefs.largeText ? 'border-vagao bg-vagao text-papel-claro' : 'border-papel-borda bg-papel-claro text-vagao'}`}
               aria-pressed={state.prefs.largeText}
               aria-label="Aumentar o tamanho das letras"
               title="Letras maiores"
@@ -87,7 +87,7 @@ export default function App() {
             </button>
             <button
               onClick={() => setPanelOpen(true)}
-              className="flex h-11 shrink-0 items-center gap-1.5 rounded-md border-2 border-papel-borda bg-papel-claro px-3 text-[14px] font-bold text-vagao hover:border-vagao"
+              className="flex h-10 shrink-0 items-center gap-1.5 rounded-md border-2 border-papel-borda bg-papel-claro px-3 text-[14px] font-bold text-vagao hover:border-vagao"
               aria-label="Abrir Painel do Pesquisador e exportar dados"
             >
               <ChartColumn size={18} />

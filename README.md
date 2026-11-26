@@ -10,7 +10,7 @@ Faz parte do projeto **FAPESP / PUC-Campinas** de apoio à candidatura de Parana
 
 <img src="public/qrcode.png" alt="QR Code do Trilhos da Memória" width="180" />
 
-**Apresentação (telão + QR Code):** https://aikiesan.github.io/Memoria_paranapiacaba/#apresentacao.
+**Apresentação com QR Code (para mostrar no celular):** https://aikiesan.github.io/Memoria_paranapiacaba/#apresentacao.
 Também abre pelo botão de QR no topo do app. O QR em alta para imprimir fica em
 [`public/qrcode.png`](public/qrcode.png) (no site: `/Memoria_paranapiacaba/qrcode.png`).
 
