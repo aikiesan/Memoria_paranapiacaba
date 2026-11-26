@@ -1,12 +1,17 @@
-# Estação de Memória — Paranapiacaba
+# Trilhos da Memória — Paranapiacaba
 
-Protótipo funcional de um WebApp **mobile-first** para conversar com moradores, ferroviários aposentados e seus familiares sobre a vida na
+Protótipo funcional de um WebApp **mobile-first** para conversar com moradores, ferroviários e seus familiares sobre a vida na
 Vila Ferroviária de Paranapiacaba, resgatando a memória da São Paulo Railway (SPR) enquanto **coleta relatos, reações e lembranças
 geolocalizadas**.
 
 Faz parte do projeto **FAPESP / PUC-Campinas** de apoio à candidatura de Paranapiacaba a Patrimônio da Humanidade (UNESCO).
 
 **Acesse:** https://aikiesan.github.io/Memoria_paranapiacaba/
+
+<img src="public/qrcode.png" alt="QR Code do Trilhos da Memória" width="180" />
+
+As pessoas chegam ao app pelo **QR Code impresso** acima. O arquivo em alta para imprimir fica em
+[`public/qrcode.png`](public/qrcode.png) (no site: `/Memoria_paranapiacaba/qrcode.png`).
 
 > ⚠️ **Versão de demonstração.** Os relatos, comentários, contagens de reações e famílias do mapa que vêm pré-carregados são
 > **fictícios** (marcados com o selo “fictício” no app e `ficticio: true` nos dados exportados). Eles existem só para ilustrar
@@ -66,13 +71,13 @@ Definições e curiosidades vêm do documento-base do projeto, apoiado em:
 5. [ANPUH — Oralidades em foco: estudos de uma vila ferroviária](https://www.snh2015.anpuh.org/resources/anais/39/1428342827_ARQUIVO_Oralidadesemfoco.pdf)
 6. [IPHAN — Vilas ferroviárias e o mundo do trabalho](https://www.gov.br/iphan/pt-br/patrimonio-cultural/patrimonio-material/patrimonio-ferroviario/tematica-06-patrimonio-ferroviario-vilas-ferroviarias-e-o-mundo-de-trabalho-recuperacao-e-conservacao)
 
-Pontos a validar com ferroviários aposentados antes de publicar: a nomenclatura exata de **cabineiro**; o termo “Fogo Paulista”
+Pontos a validar com ferroviários antes de publicar: a nomenclatura exata de **cabineiro**; o termo “Fogo Paulista”
 (propositalmente **não** usado no app); as posições dos pins de exemplo (aproximadas).
 
 ### Fotografias
 
 **Acervo do projeto.** As fotos `acervo_*.webp` foram feitas pela equipe com moradores da vila e são creditadas como
-*Acervo Estação de Memória (FAPESP/PUC-Campinas)*, CC BY 4.0. Os originais (HEIC/JPG) **não** entram no repositório.
+*Acervo Trilhos da Memória (FAPESP/PUC-Campinas)*, CC BY 4.0. Os originais (HEIC/JPG) **não** entram no repositório.
 Para converter fotos novas, acrescente uma linha em [`scripts/processar_fotos.py`](scripts/processar_fotos.py) (recorte 3:2,
 ponto central e áreas a desfocar) e rode:
 
@@ -102,7 +107,8 @@ Requer Node.js 18+.
 ```bash
 npm install
 npm run dev       # servidor de desenvolvimento
-npm run build     # gera a pasta dist/
+npm run build     # gera o QR Code (public/qrcode.*) e a pasta dist/
+npm run qrcode    # só regenera o QR Code
 npm run preview   # serve o build em http://localhost:4173/Memoria_paranapiacaba/
 ```
 
@@ -113,6 +119,10 @@ O workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) roda a
 `actions/upload-pages-artifact` + `actions/deploy-pages`.
 
 **Configuração única no repositório:** *Settings → Pages → Build and deployment → Source: **GitHub Actions***.
+
+O QR Code aponta para o endereço fixo do Pages (`APP_URL` em `src/data/content.js` e `scripts/gerar_qrcode.mjs`),
+então o mesmo QR impresso continua funcionando depois de cada novo deploy. Se o endereço mudar (ex.: domínio próprio),
+atualize os dois arquivos e rode `npm run qrcode`.
 
 O `vite.config.js` usa `base: '/Memoria_paranapiacaba/'`. Se o repositório for renomeado, ajuste esse valor.
 

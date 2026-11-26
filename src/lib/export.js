@@ -46,11 +46,14 @@ export function computeStats(state) {
 }
 
 const fmt = (iso) => (iso ? new Date(iso).toLocaleString('pt-BR') : '')
-const ligacaoLabel = (key) => LIGACOES.find((l) => l.key === key)?.label || key || ''
+const ligacaoLabel = (key) => {
+  const k = key === 'ex-ferroviario' ? 'ferroviario' : key // chave antiga
+  return LIGACOES.find((l) => l.key === k)?.label || k || ''
+}
 
 export function buildExport(state) {
   return {
-    projeto: 'Estação de Memória — Paranapiacaba (protótipo FAPESP / PUC-Campinas)',
+    projeto: 'Trilhos da Memória — Paranapiacaba (protótipo FAPESP / PUC-Campinas)',
     geradoEm: new Date().toISOString(),
     versaoEsquema: state.version,
     participanteId: state.participantId,

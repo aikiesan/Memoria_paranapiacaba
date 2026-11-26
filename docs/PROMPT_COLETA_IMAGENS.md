@@ -1,4 +1,4 @@
-# Prompt — Coleta de imagens e figuras para a “Estação de Memória — Paranapiacaba”
+# Prompt — Coleta de imagens e figuras para a “Trilhos da Memória — Paranapiacaba”
 
 > Copie o bloco abaixo e entregue a quem vai fazer a pesquisa (bolsista, equipe do acervo ou um assistente de IA com acesso à web).
 > Os nomes de arquivo já correspondem aos identificadores usados no código, então a inclusão no app será direta.
@@ -7,9 +7,9 @@
 
 ## Contexto
 
-Você vai reunir imagens para o protótipo **Estação de Memória — Paranapiacaba**, um WebApp mobile-first do projeto
+Você vai reunir imagens para o protótipo **Trilhos da Memória — Paranapiacaba**, um WebApp mobile-first do projeto
 **FAPESP / PUC-Campinas** que apoia a candidatura de Paranapiacaba (Santo André, SP) a Patrimônio da Humanidade pela UNESCO.
-O app conversa com **idosos, ferroviários aposentados e seus familiares**: as imagens precisam provocar **reconhecimento e memória
+O app conversa com **idosos, ferroviários e seus familiares**: as imagens precisam provocar **reconhecimento e memória
 afetiva** (“eu lembro disso!”), e não só ilustrar.
 
 Hoje o app mostra só fotografias; os lugares ainda sem foto aparecem apenas com texto. Queremos completá-los com **fotografias históricas (de preferência entre
@@ -97,7 +97,7 @@ trabalho**, porque a pergunta é “para que servia isso?”.
 - **Prefeitura de Santo André**: Turismo, Museu Castelo, Museu do Funicular e serviços de memória/documentação; pedir autorização formal.
 - **IPHAN e CONDEPHAAT**: dossiês de tombamento costumam ter fotos e plantas, mas confirme a permissão de reprodução.
 - **Ficha da Lista Indicativa da UNESCO** (whc.unesco.org/en/tentativelists/5878/): verifique os créditos de cada imagem.
-- **Associações de preservação ferroviária** e **famílias de ferroviários aposentados**: fotos de álbum de família, com **termo de autorização de uso de imagem** assinado.
+- **Associações de preservação ferroviária** e **famílias de ferroviários**: fotos de álbum de família, com **termo de autorização de uso de imagem** assinado.
 
 ## Entregáveis
 

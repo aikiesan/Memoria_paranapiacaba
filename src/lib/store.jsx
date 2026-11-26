@@ -41,6 +41,10 @@ function loadState() {
     if (parsed?.version !== SCHEMA_VERSION) return buildSeedState()
     // Garante que novos locais do mural existam em estados antigos
     const base = buildSeedState()
+    // Migração: a opção "ex-ferroviário / aposentado" virou simplesmente "ferroviário"
+    if (parsed.profile?.ligacao === 'ex-ferroviario') {
+      parsed.profile = { ...parsed.profile, ligacao: 'ferroviario', ligacaoLabel: 'Ferroviário(a)' }
+    }
     return {
       ...base,
       ...parsed,

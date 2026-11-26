@@ -1,4 +1,4 @@
-// Conteúdo-base da Estação de Memória — Paranapiacaba.
+// Conteúdo-base da Trilhos da Memória — Paranapiacaba.
 // Definições e curiosidades: Lista Indicativa da UNESCO, Turismo Santo André e
 // estudos acadêmicos sobre oralidade ferroviária (ver FONTES).
 // ATENÇÃO: todos os relatos, comentários e famílias marcados com `ficticio: true`
@@ -76,7 +76,7 @@ export const VOCABULARIO = [
     titulo: 'Cabineiro',
     definicao: 'Profissional que trabalhava na cabine ou no posto de controle, acompanhando sinais, comandos e movimentos dos trens.',
     curiosidade:
-      'A operação dependia de comunicação rigorosa entre pátio, estação, patamares e oficinas. O termo e suas tarefas podem variar conforme a época e a companhia — vale confirmar com ferroviários aposentados.',
+      'A operação dependia de comunicação rigorosa entre pátio, estação, patamares e oficinas. O termo e suas tarefas podem variar conforme a época e a companhia — vale confirmar com ferroviários.',
     gatilho: 'Você conheceu algum cabineiro? Como ele avisava que o trem podia partir ou parar?',
     fontes: [1, 5],
   },
@@ -209,7 +209,7 @@ export const RELATOS = [
     ficticio: true,
     personagem: 'João Oliveira',
     idade: 59,
-    relacao_com_a_vila: 'Ferroviário aposentado',
+    relacao_com_a_vila: 'Ferroviário',
     decada_referida: 'Anos 80',
     cargo_ou_oficio: 'Ajudante de manutenção',
     texto:
@@ -546,7 +546,7 @@ export const SENTIMENTOS = [
 /* 6. Bilhete / onboarding                                              */
 /* ------------------------------------------------------------------ */
 export const LIGACOES = [
-  { key: 'ex-ferroviario', emoji: '👷', label: 'Ferroviário(a) aposentado(a)', descricao: 'Trabalhei na ferrovia' },
+  { key: 'ferroviario', emoji: '👷', label: 'Ferroviário(a)', descricao: 'Trabalho ou trabalhei na ferrovia' },
   { key: 'descendente', emoji: '👨‍👧', label: 'Filho(a) ou neto(a) de ferroviário', descricao: 'A ferrovia está na minha família' },
   { key: 'morador', emoji: '🏡', label: 'Morador(a) da vila', descricao: 'Moro ou morei em Paranapiacaba' },
   { key: 'apaixonado', emoji: '⛰️', label: 'Apaixonado(a) pela Serra', descricao: 'Visito e guardo carinho pela vila' },
@@ -641,3 +641,8 @@ export const PINS_SEED = [
     lng: -46.2976,
   },
 ].map((p) => ({ ...p, origem: 'seed', ficticio: true, ts: '2026-10-01T12:00:00-03:00' }))
+
+/* ------------------------------------------------------------------ */
+/* 8. Endereço público (o mesmo do QR Code impresso)                    */
+/* ------------------------------------------------------------------ */
+export const APP_URL = 'https://aikiesan.github.io/Memoria_paranapiacaba/'
